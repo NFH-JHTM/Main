@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài sản của 12A8</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://www.turnjs.com/lib/turn.min.js"></script>
+</head>
+<body>
+
+    <div class="book-container">
+        <div id="book">
+            <div class="page cover" style="background-image: url('images/cover.jpg');">
+                <h1>Tài sản của 12A8</h1>
+            </div>
+
+            <!-- Trang nội dung (28 trang) -->
+            <script>
+                for (let i = 1; i <= 28; i++) {
+                    document.write(`
+                        <div class="page">
+                            <h2>Trang ${i}</h2>
+                            <img src="images/person${i}.jpg" alt="Ảnh trang ${i}">
+                            <p>Thông tin của người thứ ${i}.</p>
+                        </div>
+                    `);
+                }
+            </script>
+
+            <div class="page cover back" style="background-image: url('images/back-cover.jpg');">
+                <h1>The End</h1>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
