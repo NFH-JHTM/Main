@@ -1,9 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const gridItems = document.querySelectorAll(".grid-item");
-    gridItems.forEach((item, index) => {
-        setTimeout(() => {
-            item.style.opacity = "1";
-            item.style.transform = "translateY(0)";
-        }, index * 100);
-    });
+    let grid = document.getElementById("memberGrid");
+    
+    for (let i = 1; i <= 28; i++) {
+        let card = document.createElement("a");
+        card.href = `pages/person${i}.html`;
+        card.classList.add("card");
+        
+        card.innerHTML = `
+            <img src="images/person${i}.jpg" alt="Person ${i}">
+            <div class="info">
+                <p>Nhân vật ${i}</p>
+            </div>
+        `;
+        
+        grid.appendChild(card);
+    }
 });
