@@ -3,16 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tài sản của 12A8</title>
+    <title>12A8 Yearbook</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <h1>Tài sản của 12A8</h1>
-    <div id="book-container"></div>
+    <h1>12A8 Yearbook</h1>
+    
+    <div class="grid">
+        <script>
+            for (let i = 1; i <= 28; i++) {
+                document.write(`
+                    <div class="grid-item">
+                        <a href="pages/person${i}.html">
+                            <img src="images/person${i}.jpg" alt="Người ${i}">
+                            <p>Người ${i}</p>
+                        </a>
+                    </div>
+                `);
+            }
+        </script>
+    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@google/model-viewer"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
