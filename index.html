@@ -3,28 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>12A8 Yearbook</title>
+    <title>Danh Sách 12A8</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <h1>12A8 Yearbook</h1>
-    
-    <div class="grid">
-        <script>
-            for (let i = 1; i <= 28; i++) {
-                document.write(`
-                    <div class="grid-item">
-                        <a href="pages/person${i}.html">
-                            <img src="images/person${i}.jpg" alt="Người ${i}">
-                            <p>Người ${i}</p>
-                        </a>
-                    </div>
-                `);
-            }
-        </script>
+    <div class="container">
+        <h1>🌸 Danh sách các thành viên 12A8 🌸</h1>
+        <div class="grid" id="memberGrid"></div>
     </div>
-
     <script src="js/script.js"></script>
 </body>
 </html>
