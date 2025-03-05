@@ -48,47 +48,43 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+    const loadingScreen = document.querySelector(".loading-screen");
     const loadingBar = document.querySelector(".loading-bar");
     const loadingText = document.querySelector(".loading-text");
-    const loadingScreen = document.querySelector(".loading-screen");
 
-    if (!loadingBar || !loadingText || !loadingScreen) {
+    if (!loadingScreen || !loadingBar || !loadingText) {
         console.error("Lỗi: Không tìm thấy phần tử loading.");
         return;
     }
 
     // Kiểm tra nếu người dùng đến từ trang cá nhân thì bỏ qua loading
     const previousPage = document.referrer;
-    if (previousPage.includes("person")) { 
-        loadingScreen.style.display = "none"; 
+    if (previousPage.includes("person")) {
+        loadingScreen.style.display = "none";
         return;
     }
 
     let progress = 0;
 
+    // Hàm cập nhật thanh loading
     function updateLoading() {
-        progress += Math.random() * 5 + 2; // Tăng tiến trình ngẫu nhiên (2% - 7%)
+        progress += Math.random() * 5 + 2; // Tăng từ 2% - 7%
+        if (progress > 100) progress = 100;
 
-        if (progress > 100) {
-            progress = 100;
-            loadingBar.style.width = "100%";
-            loadingText.innerText = "Loading... 100%";
+        loadingBar.style.width = progress + "%";
+        loadingText.innerText = `Loading... ${Math.floor(progress)}%`;
 
+        if (progress >= 100) {
+            clearInterval(loadingInterval); // Dừng loading khi đạt 100%
             setTimeout(() => {
-                loadingScreen.style.opacity = "0"; // Làm mờ dần
+                loadingScreen.style.opacity = "0"; // Làm mờ loading
                 setTimeout(() => {
-                    loadingScreen.style.display = "none"; // Ẩn loading
+                    loadingScreen.style.display = "none"; // Ẩn hoàn toàn
                 }, 500);
             }, 500);
-        } else {
-            loadingBar.style.width = progress + "%";
-            loadingText.innerText = `Loading... ${Math.floor(progress)}%`;
-
-            requestAnimationFrame(updateLoading);
         }
     }
 
-    setTimeout(() => {
-        requestAnimationFrame(updateLoading); // Bắt đầu loading sau 0.5s để tránh bị lag
-    }, 500);
+    // Cập nhật mỗi 300ms để loading mượt mà
+    const loadingInterval = setInterval(updateLoading, 300);
 });
