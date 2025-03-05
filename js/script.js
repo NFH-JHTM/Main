@@ -47,3 +47,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    let percentage = 0;
+    const loadingText = document.getElementById("loading-percentage");
+    const interval = setInterval(() => {
+        percentage += 10;
+        loadingText.textContent = percentage + "%";
+        if (percentage >= 100) {
+            clearInterval(interval);
+        }
+    }, 300);
+});
