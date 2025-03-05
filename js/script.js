@@ -53,25 +53,29 @@ document.addEventListener("DOMContentLoaded", function () {
     const loadingText = document.querySelector(".loading-text");
     const loadingScreen = document.querySelector(".loading-screen");
 
+    if (!loadingBar || !loadingText || !loadingScreen) {
+        console.error("Lỗi: Không tìm thấy phần tử loading.");
+        return;
+    }
+
     function updateLoading() {
-        progress += Math.random() * 10;
+        progress += Math.random() * 10; // 
         if (progress > 100) progress = 100;
 
         loadingBar.style.width = progress + "%";
         loadingText.innerText = `Loading... ${Math.floor(progress)}%`;
 
         if (progress < 100) {
-            setTimeout(updateLoading, 300);
+            setTimeout(updateLoading, 200);
         } else {
             setTimeout(() => {
-                loadingScreen.style.opacity = "0";
+                loadingScreen.style.opacity = "0"; // 
                 setTimeout(() => {
-                    loadingScreen.style.display = "none";
+                    loadingScreen.style.display = "none"; // 
                 }, 500);
             }, 500);
         }
     }
 
-    updateLoading();
+    setTimeout(updateLoading, 500); // 
 });
-
