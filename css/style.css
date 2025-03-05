@@ -51,25 +51,21 @@ body {
     padding: 10px;
 }
 
-/* 🃏 Card */
+
 .card {
-    background: white;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7); 
     padding: 15px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
+    text-align: center;
     text-decoration: none;
-    color: black;
+    color: #333;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s;
     position: relative;
     overflow: hidden;
 }
 
-/* 🃏 Card hover effect */
-.card {
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s;
-}
-
+/* 🌸 Hover effect */
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
@@ -81,44 +77,36 @@ body {
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
-    float: left;
-    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
-/* 🔤 Thông tin */
+/* 🔤 Tên thành viên */
 .info h2 {
-    margin: 5px 0;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #d63384;
+    white-space: nowrap; /* Không xuống dòng */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Hiển thị "..." nếu quá dài */
+    max-width: 90%;
+    margin: auto;
 }
 
+/* 📝 Mô tả */
 .info p {
     font-size: 0.9rem;
     color: #555;
-}
-
-/* 🌸 Hiệu ứng cánh hoa */
-.petalCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
+    margin-top: 5px;
 }
 
 /* 📱 Mobile Responsive */
 @media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-
-    #searchBar {
-        width: 100%;
-        max-width: 250px;
-    }
-
     .grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .info h2 {
+        font-size: 1rem;
+        white-space: normal; /* Cho phép xuống dòng trên mobile */
+        text-overflow: unset;
     }
 }
