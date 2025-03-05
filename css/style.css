@@ -1,4 +1,4 @@
-/* 🎀 Import font dễ thương */
+/* 🎀 Font dễ thương */
 @import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
 
 body {
@@ -7,6 +7,7 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
+    overflow-x: hidden; /* 🔥 Fix scroll ngang trên mobile */
 }
 
 /* 🔝 Header */
@@ -36,194 +37,158 @@ body {
     font-size: 1rem;
     outline: none;
     transition: 0.3s;
-    font-family: 'Itim', cursive;
 }
 
 #searchBar:focus {
     width: 250px;
 }
 
-/* 🔳 Grid Layout cho trang chủ */
+/* 🌸 Background Trang Chủ */
+body.homepage {
+    background: url('/Main/images/bg-home.jpg') no-repeat center center/cover;
+    min-height: 100vh;
+    background-attachment: fixed;
+}
+
+/* 🔳 Grid Layout - Ngắn hơn */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
     justify-content: center;
-    padding: 20px;
-    align-items: start;
+    padding: 10px;
+    min-height: 60vh;
 }
 
 /* 🃏 Profile Card */
 .card {
+    position: relative;
     background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-    padding: 20px;
+    padding: 15px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    text-decoration: none;
+    text-align: left;
     color: black;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s;
-    position: relative;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 280px;
 }
 
-/* 🃏 Hover effect */
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* 🌸 Petal Effect - Che phủ card nhưng trừ avatar & text */
+.petal-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/Main/images/petal-overlay.png') repeat;
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* 🔥 Fix để text & avatar không bị che */
+.card .profile-info, .card .profile-name, .card .profile-bio, .avatar {
+    position: relative;
+    z-index: 2;
+}
+
 /* 🖼 Avatar */
 .avatar {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid white;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    margin-bottom: 10px;
+    float: left;
+    margin-right: 10px;
 }
 
-/* 🔤 Thông tin trên card */
-.info h2 {
-    font-size: 1.1rem;
-    color: #d63384;
-    margin: 10px 0 5px;
-    text-align: center;
-    font-family: 'Itim', cursive;
+/* 🌸 Profile Page */
+body.profile-page {
+    background: url('/Main/images/bg-profile.jpg') no-repeat center center/cover;
+    min-height: 100vh;
+    background-attachment: fixed;
 }
 
-.info p {
-    font-size: 0.85rem;
-    color: #555;
-    margin-bottom: 5px;
-    font-family: 'Itim', cursive;
-}
-
-/* 📄 Profile Card (Lovely Theme) */
+/* 🎀 Profile Container */
 .profile-container {
-    width: 100%;
+    width: 90%;
     max-width: 450px;
     margin: 50px auto;
     padding: 20px;
     text-align: center;
-    background: linear-gradient(135deg, #ffdde1, #ffc1cc);
-    border-radius: 20px;
+    background: linear-gradient(135deg, #ffd6e0, #ffe4ec);
+    border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: fadeIn 0.5s forwards;
-    border: 2px solid #ff8fa3;
 }
 
-/* ✨ Transition khi vào trang cá nhân */
-@keyframes fadeIn {
-    from {
-        transform: translateY(20px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-/* 🖼 Avatar lớn */
+/* 🎀 Avatar */
 .profile-avatar {
-    width: 130px;
-    height: 130px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    border: 5px solid white;
+    border: 4px solid white;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
-/* 📝 Profile Info */
-.profile-info {
-    width: 90%;
+/* 🎀 Traits - Đặt trên thông tin */
+.profile-traits {
+    width: 100%;
     text-align: center;
-    font-family: 'Itim', cursive;
+    font-size: 16px;
+    color: #d63384;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* 🎀 Thông tin cá nhân */
+.profile-info {
+    width: 100%;
+    text-align: center;
 }
 
 .profile-name {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: bold;
     color: #d63384;
-    margin-bottom: 5px;
-    font-family: 'Itim', cursive;
+    margin: 0;
 }
 
 .profile-bio {
     font-size: 16px;
     color: #555;
-    background: white;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    font-family: 'Itim', cursive;
+    margin: 5px 0 15px;
 }
 
-/* 💖 Traits (Thông tin cá nhân dạng bảng) */
-.traits {
-    width: 90%;
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 15px;
-    text-align: left;
-}
-
-.traits h3 {
-    color: #d63384;
-    text-align: center;
-    margin-bottom: 10px;
-    font-family: 'Itim', cursive;
-}
-
-.traits ul {
-    padding: 0;
-    list-style: none;
-}
-
-.traits ul li {
-    font-size: 14px;
-    color: #555;
-    padding: 8px;
-    background: #ffe4ec;
-    margin-bottom: 5px;
-    border-radius: 8px;
-    font-family: 'Itim', cursive;
-}
-
-/* 🔙 Nút quay lại */
+/* 🎀 Nút Quay Lại */
 .back-button {
     display: inline-block;
-    padding: 8px 15px;
+    padding: 10px 20px;
     background: #ff85a2;
     color: white;
     text-decoration: none;
-    border-radius: 10px;
-    transition: 0.3s;
-    margin-top: 15px;
-    font-weight: bold;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    border: 2px solid #ff5b8a;
-    font-family: 'Itim', cursive;
+    border-radius: 8px;
+    transition: background 0.3s, transform 0.2s;
 }
 
 .back-button:hover {
     background: #ff5b8a;
-    transform: scale(1.08);
+    transform: scale(1.05);
 }
 
-/* 📱 Responsive */
+/* 📱 Responsive Fix */
 @media (max-width: 768px) {
     .header {
         flex-direction: column;
@@ -239,18 +204,10 @@ body {
     .grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    /* 🔥 Fix lỗi profile page bị to trên điện thoại */
+    .profile-container {
+        width: 95%;
+        max-width: 400px;
+    }
 }
-
-
-.home-page {
-    background: url('/Main/images/backgroundmain.jpg') no-repeat center center;
-    background-size: cover;
-}
-
-
-
-.profile-page {
-    background: url('/Main/images/backgroundprofile.jpg') no-repeat center center fixed;
-    background-size: cover;
-}
-
