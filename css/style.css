@@ -247,12 +247,12 @@ body {
 }
 
 
-.profile-page {
+.home-page {
+    background: url('/Main/images/backgroundmain.jpg') no-repeat center center;
+    background-size: cover;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding: 20px;
+    flex-direction: column;
 }
 
 
