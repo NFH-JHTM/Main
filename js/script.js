@@ -48,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    let progress = 0;
     const loadingBar = document.querySelector(".loading-bar");
     const loadingText = document.querySelector(".loading-text");
     const loadingScreen = document.querySelector(".loading-screen");
@@ -58,31 +57,38 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    
+    // Kiểm tra nếu người dùng đến từ trang cá nhân thì bỏ qua loading
     const previousPage = document.referrer;
     if (previousPage.includes("person")) { 
         loadingScreen.style.display = "none"; 
         return;
     }
 
+    let progress = 0;
+
     function updateLoading() {
-        progress += Math.random() * 7 + 3; 
-        if (progress > 100) progress = 100;
+        progress += Math.random() * 5 + 2; // Tăng tiến trình ngẫu nhiên (2% - 7%)
 
-        loadingBar.style.width = progress + "%";
-        loadingText.innerText = `Loading... ${Math.floor(progress)}%`;
+        if (progress > 100) {
+            progress = 100;
+            loadingBar.style.width = "100%";
+            loadingText.innerText = "Loading... 100%";
 
-        if (progress < 100) {
-            setTimeout(updateLoading, 300); 
-        } else {
             setTimeout(() => {
-                loadingScreen.style.opacity = "0"; 
+                loadingScreen.style.opacity = "0"; // Làm mờ dần
                 setTimeout(() => {
-                    loadingScreen.style.display = "none"; 
+                    loadingScreen.style.display = "none"; // Ẩn loading
                 }, 500);
             }, 500);
+        } else {
+            loadingBar.style.width = progress + "%";
+            loadingText.innerText = `Loading... ${Math.floor(progress)}%`;
+
+            requestAnimationFrame(updateLoading);
         }
     }
 
-    setTimeout(updateLoading, 800); 
+    setTimeout(() => {
+        requestAnimationFrame(updateLoading); // Bắt đầu loading sau 0.5s để tránh bị lag
+    }, 500);
 });
