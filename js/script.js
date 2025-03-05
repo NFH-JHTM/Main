@@ -66,14 +66,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function updateLoading() {
-        progress += Math.random() * 10; 
+        progress += Math.random() * 7 + 3; 
         if (progress > 100) progress = 100;
 
         loadingBar.style.width = progress + "%";
         loadingText.innerText = `Loading... ${Math.floor(progress)}%`;
 
         if (progress < 100) {
-            setTimeout(updateLoading, 200);
+            setTimeout(updateLoading, 300); 
         } else {
             setTimeout(() => {
                 loadingScreen.style.opacity = "0"; 
@@ -84,9 +84,5 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    setTimeout(updateLoading, 500); 
-});
-
-
-    setTimeout(updateLoading, 500); // 
+    setTimeout(updateLoading, 800); 
 });
