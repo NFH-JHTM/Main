@@ -241,7 +241,7 @@ body {
     }
 }
 
-/* 📄 Căn giữa trang cá nhân */
+
 .profile-page {
     display: flex;
     justify-content: center;
@@ -250,4 +250,15 @@ body {
     padding: 20px;
 }
 
+
+.home-page {
+    background: url('/Main/images/backgroundmain.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+
+.profile-page {
+    background: url('/Main/images/backgroundprofile.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
 
