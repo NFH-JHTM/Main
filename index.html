@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>12A8 - Pinterest Style</title>
+    <title>12A8 - Lovely Class</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <canvas id="sparkleCanvas"></canvas> <!-- Canvas cho hiệu ứng lấp lánh -->
+
+    <div class="header">
+        <h1 class="title">🌸 12A8 - Lovely Class 🌸</h1>
+        <input type="text" id="searchBar" placeholder="🔍" onkeyup="searchCards()">
+    </div>
 
     <div class="container">
-        <h1 class="title">12A8 - Lovely Class</h1>
         <div class="grid">
-            <!-- Thêm 28 ô thông tin -->
             <a href="pages/person1.html" class="card">
                 <img src="images/person1.jpg" class="avatar">
                 <div class="info">
@@ -234,13 +237,12 @@
         <h2>Nguyễn Quỳnh Hương</h2>
         <p>💫 Nhẹ nhàng như một bài thơ</p>
     </div>
-</a>
-
+                <canvas class="petalCanvas"></canvas>
+            </a>
         </div>
     </div>
 
     <script src="js/script.js"></script>
-    <script src="js/sparkle.js"></script>
-
+    <script src="js/petals.js"></script>
 </body>
 </html>
