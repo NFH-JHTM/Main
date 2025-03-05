@@ -262,14 +262,13 @@ body {
     background-size: cover;
 }
 
-/* 🌸 Hoa rơi mượt, tránh lag */
+/* 🌸 Hoa rơi mượt */
 .floating-flower {
     position: fixed;
-    top: -50px;
     font-size: 24px;
     opacity: 0.8;
-    animation: floatDown linear forwards;
     pointer-events: none; /* Không ảnh hưởng UI */
+    animation: floatDown linear forwards;
 }
 
 /* 🎭 Animation hoa rơi */
