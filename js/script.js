@@ -47,14 +47,31 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    let percentage = 0;
-    const loadingText = document.getElementById("loading-percentage");
-    const interval = setInterval(() => {
-        percentage += 10;
-        loadingText.textContent = percentage + "%";
-        if (percentage >= 100) {
-            clearInterval(interval);
+document.addEventListener("DOMContentLoaded", function () {
+    let progress = 0;
+    const loadingBar = document.querySelector(".loading-bar");
+    const loadingText = document.querySelector(".loading-text");
+    const loadingScreen = document.querySelector(".loading-screen");
+
+    function updateLoading() {
+        progress += Math.random() * 10;
+        if (progress > 100) progress = 100;
+
+        loadingBar.style.width = progress + "%";
+        loadingText.innerText = `Loading... ${Math.floor(progress)}%`;
+
+        if (progress < 100) {
+            setTimeout(updateLoading, 300);
+        } else {
+            setTimeout(() => {
+                loadingScreen.style.opacity = "0";
+                setTimeout(() => {
+                    loadingScreen.style.display = "none";
+                }, 500);
+            }, 500);
         }
-    }, 300);
+    }
+
+    updateLoading();
 });
+
