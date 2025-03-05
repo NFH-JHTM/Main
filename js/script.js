@@ -31,3 +31,19 @@ function searchCards() {
     });
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    let cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+        card.addEventListener("mouseenter", () => {
+            card.style.transform = "translateY(-5px)";
+            card.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.2)";
+        });
+
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "translateY(0)";
+            card.style.boxShadow = "0 4px 10px rgba(0, 0, 0, 0.1)";
+        });
+    });
+});
+
