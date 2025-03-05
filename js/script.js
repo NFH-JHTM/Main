@@ -60,8 +60,9 @@ document.addEventListener("DOMContentLoaded", function () {
         flower.classList.add("floating-flower");
         flower.innerHTML = "🌸";
 
-        // Random vị trí bên viền grid profile
-        flower.style.left = Math.random() * window.innerWidth + "px";
+        // Vị trí random quanh màn hình nhưng giới hạn trong vùng profile
+        flower.style.left = Math.random() * window.innerWidth * 0.8 + "px";
+        flower.style.top = "-50px";
         flower.style.animationDuration = (Math.random() * 4 + 3) + "s"; // 3-7 giây
 
         document.body.appendChild(flower);
@@ -75,5 +76,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // 🌸 Giảm tần suất tạo hoa (mượt hơn, tránh lag)
-    setInterval(createFlower, 1000);
+    setInterval(createFlower, 1500);
 });
+
