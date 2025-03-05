@@ -47,3 +47,33 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    if (!document.querySelector(".profile-container")) return; // Chỉ chạy trong trang cá nhân
+
+    const maxFlowers = 15; // 🌸 Giới hạn số hoa tối đa trên màn hình
+    let flowers = [];
+
+    function createFlower() {
+        if (flowers.length >= maxFlowers) return; // Nếu đủ 15 hoa thì không tạo thêm
+
+        const flower = document.createElement("div");
+        flower.classList.add("floating-flower");
+        flower.innerHTML = "🌸";
+
+        // Random vị trí bên viền grid profile
+        flower.style.left = Math.random() * window.innerWidth + "px";
+        flower.style.animationDuration = (Math.random() * 4 + 3) + "s"; // 3-7 giây
+
+        document.body.appendChild(flower);
+        flowers.push(flower);
+
+        // Xóa sau khi hoàn thành animation
+        setTimeout(() => {
+            flower.remove();
+            flowers.shift(); // Xóa khỏi mảng để tiếp tục tạo hoa mới
+        }, 7000);
+    }
+
+    // 🌸 Giảm tần suất tạo hoa (mượt hơn, tránh lag)
+    setInterval(createFlower, 1000);
+});
