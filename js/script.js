@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // Kiểm tra nếu người dùng đến từ trang cá nhân thì bỏ qua loading
+    // Kiểm tra nếu đến từ trang cá nhân thì bỏ qua loading
     const previousPage = document.referrer;
     if (previousPage.includes("person")) {
         loadingScreen.style.display = "none";
@@ -66,25 +66,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let progress = 0;
 
-    // Hàm cập nhật thanh loading
     function updateLoading() {
-        progress += Math.random() * 5 + 2; // Tăng từ 2% - 7%
-        if (progress > 100) progress = 100;
-
-        loadingBar.style.width = progress + "%";
-        loadingText.innerText = `Loading... ${Math.floor(progress)}%`;
-
         if (progress >= 100) {
-            clearInterval(loadingInterval); // Dừng loading khi đạt 100%
+            clearInterval(loadingInterval);
             setTimeout(() => {
-                loadingScreen.style.opacity = "0"; // Làm mờ loading
+                loadingScreen.style.opacity = "0"; // Làm mờ dần
                 setTimeout(() => {
                     loadingScreen.style.display = "none"; // Ẩn hoàn toàn
                 }, 500);
             }, 500);
+            return;
         }
+
+        progress += Math.random() * 10 + 5; // Tăng từ 5% - 15%
+        if (progress > 100) progress = 100;
+
+        loadingBar.style.width = progress + "%";
+        loadingText.innerText = `Loading... ${Math.floor(progress)}%`;
     }
 
-    // Cập nhật mỗi 300ms để loading mượt mà
-    const loadingInterval = setInterval(updateLoading, 300);
+    // Bắt đầu loading animation sau khi trang tải xong
+    window.onload = function () {
+        const loadingInterval = setInterval(updateLoading, 400);
+    };
 });
