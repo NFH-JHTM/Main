@@ -261,3 +261,71 @@ body {
     background: url('/Main/images/backgroundprofile.jpg') no-repeat center center fixed;
     background-size: cover;
 }
+
+/* 🌸 Loading Screen */
+.loading-screen {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #ffe4ec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    animation: fadeOut 0.5s 3s forwards;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.loading-flower {
+    font-size: 40px;
+    display: inline-block;
+    animation: shake 0.5s infinite ease-in-out;
+}
+
+/* 🔢 Loading Text */
+.loading-text {
+    font-size: 20px;
+    color: #d63384;
+    font-family: 'Itim', cursive;
+    margin-bottom: 10px;
+}
+
+/* 🔄 Loading Bar */
+.loading-bar {
+    width: 200px;
+    height: 10px;
+    background: #ffb6c1;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.loading-progress {
+    width: 0%;
+    height: 100%;
+    background: #ff69b4;
+    border-radius: 10px;
+    animation: progress 3s linear forwards;
+}
+
+/* ⏳ Keyframes */
+@keyframes progress {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+@keyframes fadeOut {
+    100% { opacity: 0; visibility: hidden; }
+}
+
+/* 🌸 Shake Emoji */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px) rotate(-5deg); }
+    50% { transform: translateX(3px) rotate(5deg); }
+    75% { transform: translateX(-3px) rotate(-5deg); }
+}
