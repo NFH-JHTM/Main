@@ -250,9 +250,6 @@ body {
 .home-page {
     background: url('/Main/images/backgroundmain.jpg') no-repeat center center;
     background-size: cover;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 
