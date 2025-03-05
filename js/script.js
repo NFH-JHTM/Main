@@ -58,8 +58,15 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+    
+    const previousPage = document.referrer;
+    if (previousPage.includes("person")) { 
+        loadingScreen.style.display = "none"; 
+        return;
+    }
+
     function updateLoading() {
-        progress += Math.random() * 10; // 
+        progress += Math.random() * 10; 
         if (progress > 100) progress = 100;
 
         loadingBar.style.width = progress + "%";
@@ -69,13 +76,17 @@ document.addEventListener("DOMContentLoaded", function () {
             setTimeout(updateLoading, 200);
         } else {
             setTimeout(() => {
-                loadingScreen.style.opacity = "0"; // 
+                loadingScreen.style.opacity = "0"; 
                 setTimeout(() => {
-                    loadingScreen.style.display = "none"; // 
+                    loadingScreen.style.display = "none"; 
                 }, 500);
             }, 500);
         }
     }
+
+    setTimeout(updateLoading, 500); 
+});
+
 
     setTimeout(updateLoading, 500); // 
 });
