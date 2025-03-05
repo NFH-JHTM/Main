@@ -16,3 +16,18 @@ document.addEventListener("DOMContentLoaded", function () {
         grid.appendChild(card);
     }
 });
+
+function searchCards() {
+    let input = document.getElementById("searchBar").value.toLowerCase();
+    let cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+        let name = card.querySelector("h2").innerText.toLowerCase();
+        if (name.includes(input)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+
