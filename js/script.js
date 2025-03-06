@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Script Loaded! 🚀");
+    console.log("✅ Script Loaded!");
 
     // 🔹 Tạo Profile Card tự động trong Grid (Trang Chủ)
     let grid = document.getElementById("memberGrid");
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
             card.innerHTML = `
                 <img src="images/person${i}.jpg" alt="Person ${i}">
                 <div class="info">
-                    <p>Nhân vật ${i}</p>
+                    <h2>Nhân vật ${i}</h2>
                 </div>
             `;
 
@@ -23,12 +23,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // 🔍 Search Function - Tìm kiếm Profile
     let searchBar = document.getElementById("searchBar");
     if (searchBar) {
-        searchBar.addEventListener("keyup", function () {
+        searchBar.addEventListener("input", function () {
             let input = searchBar.value.toLowerCase();
             let cards = document.querySelectorAll(".card");
 
             cards.forEach(card => {
-                let name = card.querySelector(".info p").innerText.toLowerCase();
+                let name = card.querySelector(".info h2").innerText.toLowerCase();
                 card.style.display = name.includes(input) ? "block" : "none";
             });
         });
@@ -51,9 +51,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // 🌸 Hiệu ứng Hoa Rơi (Chỉ Trong Trang Cá Nhân)
     const profilePage = document.querySelector(".profile-container");
     if (profilePage) {
-        const maxFlowers = 15;
+        const maxFlowers = 10; // Giảm số hoa tối đa để tránh lag
         let flowers = [];
-        let flowerInterval;
 
         function createFlower() {
             if (flowers.length >= maxFlowers) return;
@@ -72,29 +71,10 @@ document.addEventListener("DOMContentLoaded", function () {
             setTimeout(() => {
                 flower.remove();
                 flowers = flowers.filter(f => f !== flower);
-            }, 8000);
+            }, 7000);
         }
 
-        function startFlowerEffect() {
-            if (!flowerInterval) {
-                flowerInterval = setInterval(createFlower, 1200);
-            }
-        }
-
-        function stopFlowerEffect() {
-            clearInterval(flowerInterval);
-            flowerInterval = null;
-        }
-
-        document.addEventListener("visibilitychange", function () {
-            if (document.hidden) {
-                stopFlowerEffect();
-            } else {
-                startFlowerEffect();
-            }
-        });
-
-        startFlowerEffect();
+        setInterval(createFlower, 1500);
     }
 
     // ⏳ Loading Screen (Chỉ Chạy Ở Trang Chủ)
@@ -103,24 +83,5 @@ document.addEventListener("DOMContentLoaded", function () {
         let progress = 0;
 
         function updateLoading() {
-            progress += Math.random() * 5 + 3;
-            if (progress > 100) progress = 100;
-
-            document.querySelector(".loading-bar").style.width = progress + "%";
-            document.querySelector(".loading-text").innerText = `Loading... ${Math.floor(progress)}%`;
-
-            if (progress < 100) {
-                setTimeout(updateLoading, 300);
-            } else {
-                setTimeout(() => {
-                    loadingScreen.style.opacity = "0";
-                    setTimeout(() => {
-                        loadingScreen.style.display = "none";
-                    }, 500);
-                }, 500);
-            }
-        }
-
-        setTimeout(updateLoading, 500);
-    }
-});
+            progress += Math.random() * 4 + 2;
+            if (progress > 10
