@@ -314,12 +314,6 @@ body {
     animation: shake 0.6s infinite alternate ease-in-out;
 }
 
-/* 🌸 Shake Effect */
-@keyframes shake {
-    0% { transform: translateX(-5px); }
-    100% { transform: translateX(5px); }
-}
-
 /* 🔋 Loading Bar */
 .loading-bar-container {
     width: 80%;
@@ -347,5 +341,4 @@ body {
     font-size: 18px;
     color: #ff4081;
     font-weight: bold;
-    font-family: 'Itim', cursive;
 }
