@@ -3,22 +3,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 🔹 Tạo Profile Card tự động trong Grid (Trang Chủ)
     let grid = document.getElementById("memberGrid");
-    if (grid && grid.children.length === 0) { // Tránh tạo trùng lặp
+    if (grid) {
         for (let i = 1; i <= 28; i++) {
             let card = document.createElement("a");
             card.href = `pages/person${i}.html`;
             card.classList.add("card");
 
             card.innerHTML = `
-    <img src="images/person${i}.jpg" class="avatar small-img" loading="lazy" 
-         onmouseover="this.classList.remove('small-img')" 
-         onmouseout="this.classList.add('small-img')">
-    <div class="info">
-        <h2>Nhân vật ${i}</h2>
-        <p>✨ Skibidi toilet</p>
-    </div>
-`;
+                <img src="images/person${i}.jpg" alt="Person ${i}">
+                <div class="info">
+                    <p>Nhân vật ${i}</p>
+                </div>
+            `;
 
+            grid.appendChild(card);
+        }
+    }
 
     // 🔍 Search Function - Tìm kiếm Profile
     let searchBar = document.getElementById("searchBar");
@@ -98,42 +98,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ⏳ Loading Screen (Chỉ Chạy Ở Trang Chủ)
-     const loadingScreen = document.querySelector(".loading-screen");
-    const loadingBar = document.querySelector(".loading-bar");
-    const loadingText = document.querySelector(".loading-text");
+    const loadingScreen = document.querySelector(".loading-screen");
+    if (loadingScreen) {
+        let progress = 0;
 
-    if (!loadingScreen || !loadingBar || !loadingText) {
-        console.error("❌ Không tìm thấy phần tử loading!");
-        return;
-    }
+        function updateLoading() {
+            progress += Math.random() * 5 + 3;
+            if (progress > 100) progress = 100;
 
-    // Kiểm tra nếu đến từ trang cá nhân thì bỏ qua loading
-    if (document.referrer.includes("person")) {
-        loadingScreen.style.display = "none";
-        return;
-    }
+            document.querySelector(".loading-bar").style.width = progress + "%";
+            document.querySelector(".loading-text").innerText = `Loading... ${Math.floor(progress)}%`;
 
-    let progress = 0;
-
-    function updateLoading() {
-        progress += Math.random() * 5 + 3; // Tăng từ 3% - 8% mỗi lần
-        if (progress > 100) progress = 100;
-
-        loadingBar.style.width = progress + "%";
-        loadingText.innerText = `Loading... ${Math.floor(progress)}%`;
-
-        if (progress < 100) {
-            setTimeout(updateLoading, 300);
-        } else {
-            setTimeout(() => {
-                loadingScreen.style.opacity = "0"; // Làm mờ loading
+            if (progress < 100) {
+                setTimeout(updateLoading, 300);
+            } else {
                 setTimeout(() => {
-                    loadingScreen.style.display = "none"; // Ẩn hoàn toàn
+                    loadingScreen.style.opacity = "0";
+                    setTimeout(() => {
+                        loadingScreen.style.display = "none";
+                    }, 500);
                 }, 500);
-            }, 500);
+            }
         }
-    }
 
-    // Chạy loading sau 0.5s để tránh lag
-    setTimeout(updateLoading, 500);
+        setTimeout(updateLoading, 500);
+    }
 });
