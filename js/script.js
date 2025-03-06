@@ -20,19 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // 🔍 Search Function - Tìm kiếm Profile
-    let searchBar = document.getElementById("searchBar");
-    if (searchBar) {
-        searchBar.addEventListener("keyup", function () {
-            let input = searchBar.value.toLowerCase();
-            let cards = document.querySelectorAll(".card");
-
-            cards.forEach(card => {
-                let name = card.querySelector(".info p").innerText.toLowerCase();
-                card.style.display = name.includes(input) ? "block" : "none";
-            });
-        });
-    }
 
     // 🃏 Hover Effect cho Card (Trang Chủ)
     let cards = document.querySelectorAll(".card");
@@ -97,11 +84,20 @@ document.addEventListener("DOMContentLoaded", function () {
         startFlowerEffect();
     }
 
-    // ⏳ Loading Screen (Chỉ Chạy Ở Trang Chủ)
-    const loadingScreen = document.querySelector(".loading-screen");
-    if (loadingScreen) {
-        let progress = 0;
 
+    // 🔹 Kiểm tra nếu đã tải trang chủ trước đó
+    if (sessionStorage.getItem("visited")) {
+        document.querySelector(".loading-screen").style.display = "none";
+    } else {
+        sessionStorage.setItem("visited", "true");
+        startLoadingScreen();
+    }
+
+    function startLoadingScreen() {
+        const loadingScreen = document.querySelector(".loading-screen");
+        if (!loadingScreen) return;
+        
+        let progress = 0;
         function updateLoading() {
             progress += Math.random() * 5 + 3;
             if (progress > 100) progress = 100;
@@ -120,6 +116,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 }, 500);
             }
         }
+        setTimeout(updateLoading, 500);
+    }
+
+    // 🔍 Search Function - Tìm kiếm Profile
+    document.getElementById("searchBar").addEventListener("keyup", function () {
+        let input = this.value.toLowerCase();
+        let cards = document.querySelectorAll(".card");
+
+        cards.forEach(card => {
+            let name = card.querySelector(".info h2").innerText.toLowerCase();
+            card.style.display = name.includes(input) ? "block" : "none";
+        });
+    });
+});
+
 
         setTimeout(updateLoading, 500);
     }
