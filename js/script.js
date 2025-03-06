@@ -3,19 +3,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 🔹 Tạo Profile Card tự động trong Grid (Trang Chủ)
     let grid = document.getElementById("memberGrid");
-    if (grid) {
+    if (grid && grid.children.length === 0) { // Tránh tạo trùng lặp
         for (let i = 1; i <= 28; i++) {
             let card = document.createElement("a");
             card.href = `pages/person${i}.html`;
             card.classList.add("card");
 
             card.innerHTML = `
-    <img src="images/person${i}.jpg" class="avatar" loading="lazy">
-    <div class="info">
-        <h2>Nhân vật ${i}</h2>
-        <p>✨ Skibidi toilet</p>
-    </div>
-`;
+                <img src="images/person${i}.jpg" class="avatar" loading="lazy">
+                <div class="info">
+                    <h2>Nhân vật ${i}</h2>
+                    <p>✨ Skibidi toilet</p>
+                </div>
+            `;
 
             grid.appendChild(card);
         }
