@@ -48,9 +48,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (!document.querySelector(".profile-container")) return; // Chỉ chạy trong trang cá nhân
+    // Kiểm tra nếu đang ở trang cá nhân (chỉ chạy ở personX.html)
+    const profilePage = document.querySelector(".profile-container");
+    if (!profilePage) return;
 
-    const maxFlowers = 15; // 🌸 Giới hạn số hoa tối đa trên màn hình
+    const maxFlowers = 15; // 🌸 Giới hạn số hoa tối đa
     let flowers = [];
 
     function createFlower() {
@@ -60,16 +62,16 @@ document.addEventListener("DOMContentLoaded", function () {
         flower.classList.add("floating-flower");
         flower.innerHTML = "🌸";
 
-        // Vị trí random quanh màn hình nhưng không che nội dung chính
-        flower.style.left = Math.random() * window.innerWidth * 0.9 + "px";
-        flower.style.top = "-50px"; 
+        // Vị trí random trong khung profile, tránh che nội dung chính
+        flower.style.left = Math.random() * window.innerWidth * 0.8 + "px";
+        flower.style.top = "-50px";
         flower.style.animationDuration = (Math.random() * 4 + 3) + "s"; // 3-7 giây
-        flower.style.fontSize = Math.random() * 10 + 20 + "px"; // Kích thước từ 20px - 30px
+        flower.style.fontSize = Math.random() * 10 + 20 + "px"; // Kích thước ngẫu nhiên
 
         document.body.appendChild(flower);
         flowers.push(flower);
 
-        // Xóa sau khi hoàn thành animation
+        // Xóa hoa sau khi hoàn thành animation
         setTimeout(() => {
             flower.remove();
             flowers.shift(); // Xóa khỏi mảng để tiếp tục tạo hoa mới
@@ -79,3 +81,4 @@ document.addEventListener("DOMContentLoaded", function () {
     // 🌸 Giảm tần suất tạo hoa (mượt hơn, tránh lag)
     setInterval(createFlower, 1200);
 });
+
