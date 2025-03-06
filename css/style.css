@@ -262,6 +262,13 @@ body {
     background-size: cover;
 }
 
+
+.small-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
 /* 🌸 Hoa rơi mượt */
 .floating-flower {
     position: fixed;
@@ -341,10 +348,4 @@ body {
     color: #ff4081;
     font-weight: bold;
     font-family: 'Itim', cursive;
-}
-
-.small-img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
 }
