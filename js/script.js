@@ -78,16 +78,60 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 🔹 Kiểm tra nếu đã tải trang chủ trước đó
-    if (sessionStorage.getItem("visited")) {
-        document.querySelector(".loading-screen").style.display = "none";
-    } else {
-        sessionStorage.setItem("visited", "true");
-        startLoadingScreen();
+    // 🌸 Hiệu ứng Hoa Rơi (Chỉ Trong Trang Cá Nhân)
+    const profilePage = document.querySelector(".profile-container");
+    if (profilePage) {
+        const maxFlowers = 10;
+        let flowerInterval;
+
+        function createFlower() {
+            const flower = document.createElement("div");
+            flower.classList.add("floating-flower");
+            flower.innerHTML = "🌸";
+            flower.style.left = Math.random() * window.innerWidth + "px";
+            flower.style.animationDuration = (Math.random() * 5 + 3) + "s";
+            flower.style.opacity = Math.random() * 0.8 + 0.2;
+            document.body.appendChild(flower);
+
+            setTimeout(() => flower.remove(), 8000);
+        }
+
+        function startFlowerEffect() {
+            flowerInterval = setInterval(() => {
+                if (document.querySelectorAll(".floating-flower").length < maxFlowers) {
+                    createFlower();
+                }
+            }, 1200);
+        }
+
+        function stopFlowerEffect() {
+            clearInterval(flowerInterval);
+        }
+
+        document.addEventListener("visibilitychange", function () {
+            if (document.hidden) {
+                stopFlowerEffect();
+            } else {
+                startFlowerEffect();
+            }
+        });
+
+        startFlowerEffect();
+    }
+
+    // ⏳ Loading Screen (Fix: Chỉ xuất hiện lần đầu tiên khi truy cập từ web khác)
+    const loadingScreen = document.querySelector(".loading-screen");
+
+    if (loadingScreen) {
+        if (sessionStorage.getItem("visited")) {
+            loadingScreen.style.display = "none";
+        } else {
+            sessionStorage.setItem("visited", "true");
+            startLoadingScreen();
+        }
     }
 
     function startLoadingScreen() {
-        const loadingScreen = document.querySelector(".loading-screen");
         if (!loadingScreen) return;
 
         let progress = 0;
@@ -110,55 +154,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
         setTimeout(updateLoading, 500);
-    }
-
-    // 🌸 Hiệu ứng Hoa Rơi (Chỉ Trong Trang Cá Nhân)
-    const profilePage = document.querySelector(".profile-container");
-    if (profilePage) {
-        const maxFlowers = 15;
-        let flowers = [];
-        let flowerInterval;
-
-        function createFlower() {
-            if (flowers.length >= maxFlowers) return;
-
-            const flower = document.createElement("div");
-            flower.classList.add("floating-flower");
-            flower.innerHTML = "🌸";
-
-            flower.style.left = Math.random() * window.innerWidth + "px";
-            flower.style.animationDuration = (Math.random() * 5 + 3) + "s";
-            flower.style.opacity = Math.random() * 0.8 + 0.2;
-
-            document.body.appendChild(flower);
-            flowers.push(flower);
-
-            setTimeout(() => {
-                flower.remove();
-                flowers = flowers.filter(f => f !== flower);
-            }, 8000);
-        }
-
-        function startFlowerEffect() {
-            if (!flowerInterval) {
-                flowerInterval = setInterval(createFlower, 1200);
-            }
-        }
-
-        function stopFlowerEffect() {
-            clearInterval(flowerInterval);
-            flowerInterval = null;
-        }
-
-        document.addEventListener("visibilitychange", function () {
-            if (document.hidden) {
-                stopFlowerEffect();
-            } else {
-                startFlowerEffect();
-            }
-        });
-
-        startFlowerEffect();
     }
 
     // 🛠 Fix lag khi quay lại tab
