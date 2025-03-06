@@ -77,7 +77,7 @@ body {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* 🖼 Avatar - Lazy Load */
+/* 🖼 Avatar */
 .avatar {
     width: 100px;
     height: 100px;
@@ -86,13 +86,22 @@ body {
     border: 4px solid white;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     margin-bottom: 10px;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
 }
 
-/* ✨ Lazy Load - Fade in khi ảnh xuất hiện */
-.avatar.loaded {
-    opacity: 1;
+/* 🔤 Thông tin trên card */
+.info h2 {
+    font-size: 1.1rem;
+    color: #d63384;
+    margin: 10px 0 5px;
+    text-align: center;
+    font-family: 'Itim', cursive;
+}
+
+.info p {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 5px;
+    font-family: 'Itim', cursive;
 }
 
 /* 📄 Profile Card (Lovely Theme) */
@@ -135,15 +144,132 @@ body {
     margin-bottom: 10px;
 }
 
-/* 🌸 Giới hạn hiệu ứng hoa rơi */
+/* 📝 Profile Info */
+.profile-info {
+    width: 90%;
+    text-align: center;
+    font-family: 'Itim', cursive;
+}
+
+.profile-name {
+    font-size: 26px;
+    font-weight: bold;
+    color: #d63384;
+    margin-bottom: 5px;
+    font-family: 'Itim', cursive;
+}
+
+.profile-bio {
+    font-size: 16px;
+    color: #555;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Itim', cursive;
+}
+
+/* 💖 Traits (Thông tin cá nhân dạng bảng) */
+.traits {
+    width: 90%;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 15px;
+    text-align: left;
+}
+
+.traits h3 {
+    color: #d63384;
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'Itim', cursive;
+}
+
+.traits ul {
+    padding: 0;
+    list-style: none;
+}
+
+.traits ul li {
+    font-size: 14px;
+    color: #555;
+    padding: 8px;
+    background: #ffe4ec;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    font-family: 'Itim', cursive;
+}
+
+/* 🔙 Nút quay lại */
+.back-button {
+    display: inline-block;
+    padding: 8px 15px;
+    background: #ff85a2;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: 0.3s;
+    margin-top: 15px;
+    font-weight: bold;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    border: 2px solid #ff5b8a;
+    font-family: 'Itim', cursive;
+}
+
+.back-button:hover {
+    background: #ff5b8a;
+    transform: scale(1.08);
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #searchBar {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+.profile-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+
+.home-page {
+    background: url('/Main/images/backgroundmain.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+
+.profile-page {
+    background: url('/Main/images/backgroundprofile.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* 🌸 Hoa rơi mượt */
 .floating-flower {
     position: fixed;
-    font-size: 20px;
-    opacity: 0.7;
-    pointer-events: none;
-    animation: floatDown 8s linear forwards;
+    font-size: 24px;
+    opacity: 0.8;
+    pointer-events: none; /* Không ảnh hưởng UI */
+    animation: floatDown linear forwards;
     z-index: 10;
-    max-width: 10px;
 }
 
 /* 🎭 Animation hoa rơi */
@@ -175,6 +301,18 @@ body {
     transition: opacity 0.5s ease-out;
 }
 
+/* 🌸 Loading Emoji */
+.loading-emoji {
+    font-size: 40px;
+    animation: shake 0.6s infinite alternate ease-in-out;
+}
+
+/* 🌸 Shake Effect */
+@keyframes shake {
+    0% { transform: translateX(-5px); }
+    100% { transform: translateX(5px); }
+}
+
 /* 🔋 Loading Bar */
 .loading-bar-container {
     width: 80%;
@@ -203,40 +341,4 @@ body {
     color: #ff4081;
     font-weight: bold;
     font-family: 'Itim', cursive;
-}
-
-/* 📱 Responsive */
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-
-    #searchBar {
-        width: 100%;
-        max-width: 250px;
-    }
-
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-.profile-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding: 20px;
-}
-
-.home-page {
-    background: url('/Main/images/backgroundmain.jpg') no-repeat center center fixed;
-    background-size: cover;
-}
-
-.profile-page {
-    background: url('/Main/images/backgroundprofile.jpg') no-repeat center center fixed;
-    background-size: cover;
 }
