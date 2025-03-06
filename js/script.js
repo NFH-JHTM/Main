@@ -1,41 +1,39 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("✅ Script Loaded!");
-
-    // 🔹 Tạo Profile Card tự động trong Grid (Trang Chủ)
     let grid = document.getElementById("memberGrid");
-    if (grid) {
-        for (let i = 1; i <= 28; i++) {
-            let card = document.createElement("a");
-            card.href = `pages/person${i}.html`;
-            card.classList.add("card");
-
-            card.innerHTML = `
-                <img src="images/person${i}.jpg" alt="Person ${i}">
-                <div class="info">
-                    <h2>Nhân vật ${i}</h2>
-                </div>
-            `;
-
-            grid.appendChild(card);
-        }
+    
+    for (let i = 1; i <= 28; i++) {
+        let card = document.createElement("a");
+        card.href = `pages/person${i}.html`;
+        card.classList.add("card");
+        
+        card.innerHTML = `
+            <img src="images/person${i}.jpg" alt="Person ${i}">
+            <div class="info">
+                <p>Nhân vật ${i}</p>
+            </div>
+        `;
+        
+        grid.appendChild(card);
     }
+});
 
-    // 🔍 Search Function - Tìm kiếm Profile
-    let searchBar = document.getElementById("searchBar");
-    if (searchBar) {
-        searchBar.addEventListener("input", function () {
-            let input = searchBar.value.toLowerCase();
-            let cards = document.querySelectorAll(".card");
-
-            cards.forEach(card => {
-                let name = card.querySelector(".info h2").innerText.toLowerCase();
-                card.style.display = name.includes(input) ? "block" : "none";
-            });
-        });
-    }
-
-    // 🃏 Hover Effect cho Card (Trang Chủ)
+function searchCards() {
+    let input = document.getElementById("searchBar").value.toLowerCase();
     let cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+        let name = card.querySelector("h2").innerText.toLowerCase();
+        if (name.includes(input)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    let cards = document.querySelectorAll(".card");
+
     cards.forEach(card => {
         card.addEventListener("mouseenter", () => {
             card.style.transform = "translateY(-5px)";
@@ -47,41 +45,95 @@ document.addEventListener("DOMContentLoaded", function () {
             card.style.boxShadow = "0 4px 10px rgba(0, 0, 0, 0.1)";
         });
     });
+});
 
-    // 🌸 Hiệu ứng Hoa Rơi (Chỉ Trong Trang Cá Nhân)
-    const profilePage = document.querySelector(".profile-container");
-    if (profilePage) {
-        const maxFlowers = 10; // Giảm số hoa tối đa để tránh lag
-        let flowers = [];
+document.addEventListener("DOMContentLoaded", function () {
+    if (!document.querySelector(".profile-container")) return; // Chỉ chạy trong trang cá nhân
 
-        function createFlower() {
-            if (flowers.length >= maxFlowers) return;
+    const maxFlowers = 15; 
+    let flowers = [];
+    let flowerInterval;
 
-            const flower = document.createElement("div");
-            flower.classList.add("floating-flower");
-            flower.innerHTML = "🌸";
+    function createFlower() {
+        if (flowers.length >= maxFlowers) return; 
 
-            flower.style.left = Math.random() * window.innerWidth + "px";
-            flower.style.animationDuration = (Math.random() * 5 + 3) + "s";
-            flower.style.opacity = Math.random() * 0.8 + 0.2;
+        const flower = document.createElement("div");
+        flower.classList.add("floating-flower");
+        flower.innerHTML = "🌸";
 
-            document.body.appendChild(flower);
-            flowers.push(flower);
+        flower.style.left = Math.random() * window.innerWidth + "px";
+        flower.style.animationDuration = (Math.random() * 5 + 3) + "s"; 
+        flower.style.opacity = Math.random() * 0.8 + 0.2;
 
-            setTimeout(() => {
-                flower.remove();
-                flowers = flowers.filter(f => f !== flower);
-            }, 7000);
-        }
+        document.body.appendChild(flower);
+        flowers.push(flower);
 
-        setInterval(createFlower, 1500);
+        setTimeout(() => {
+            flower.remove();
+            flowers = flowers.filter(f => f !== flower);
+        }, 8000); 
     }
 
-    // ⏳ Loading Screen (Chỉ Chạy Ở Trang Chủ)
-    const loadingScreen = document.querySelector(".loading-screen");
-    if (loadingScreen) {
-        let progress = 0;
+    function startFlowerEffect() {
+        if (!flowerInterval) {
+            flowerInterval = setInterval(createFlower, 1200);
+        }
+    }
 
-        function updateLoading() {
-            progress += Math.random() * 4 + 2;
-            if (progress > 10
+    function stopFlowerEffect() {
+        clearInterval(flowerInterval);
+        flowerInterval = null;
+    }
+
+    document.addEventListener("visibilitychange", function () {
+        if (document.hidden) {
+            stopFlowerEffect();
+        } else {
+            startFlowerEffect();
+        }
+    });
+
+    startFlowerEffect();
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const loadingScreen = document.querySelector(".loading-screen");
+    const loadingBar = document.querySelector(".loading-bar");
+    const loadingText = document.querySelector(".loading-text");
+
+    if (!loadingScreen || !loadingBar || !loadingText) {
+        console.error("Lỗi: Không tìm thấy phần tử loading.");
+        return;
+    }
+
+    // Kiểm tra nếu đến từ trang cá nhân thì bỏ qua loading
+    const previousPage = document.referrer;
+    if (previousPage.includes("person")) {
+        loadingScreen.style.display = "none";
+        return;
+    }
+
+    let progress = 0;
+
+    function updateLoading() {
+        progress += Math.random() * 5 + 3; // Tăng từ 3% - 8% mỗi lần
+        if (progress > 100) progress = 100;
+
+        loadingBar.style.width = progress + "%";
+        loadingText.innerText = `Loading... ${Math.floor(progress)}%`;
+
+        if (progress < 100) {
+            setTimeout(updateLoading, 300);
+        } else {
+            setTimeout(() => {
+                loadingScreen.style.opacity = "0"; // Làm mờ loading
+                setTimeout(() => {
+                    loadingScreen.style.display = "none"; // Ẩn hoàn toàn
+                }, 500);
+            }, 500);
+        }
+    }
+
+    setTimeout(updateLoading, 500); // Bắt đầu loading sau 0.5s để tránh lag
+});
