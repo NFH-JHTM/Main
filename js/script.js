@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (!document.querySelector(".profile-container")) return; 
+    if (!document.querySelector(".profile-container")) return; // Chỉ chạy trong trang cá nhân
 
     const maxFlowers = 15; 
     let flowers = [];
@@ -61,26 +61,22 @@ document.addEventListener("DOMContentLoaded", function () {
         flower.classList.add("floating-flower");
         flower.innerHTML = "🌸";
 
-        
-        flower.style.left = Math.random() * window.innerWidth * 0.9 + "px";
-        flower.style.top = "-50px"; 
-        flower.style.animationDuration = (Math.random() * 4 + 3) + "s"; 
-        flower.style.fontSize = Math.random() * 10 + 20 + "px"; 
+        flower.style.left = Math.random() * window.innerWidth + "px";
+        flower.style.animationDuration = (Math.random() * 5 + 3) + "s"; 
+        flower.style.opacity = Math.random() * 0.8 + 0.2;
 
         document.body.appendChild(flower);
         flowers.push(flower);
 
-        
         setTimeout(() => {
             flower.remove();
-            flowers.shift(); 
-        }, 7000);
+            flowers = flowers.filter(f => f !== flower);
+        }, 8000); 
     }
 
-    
     function startFlowerEffect() {
         if (!flowerInterval) {
-            flowerInterval = setInterval(createFlower, 1500);
+            flowerInterval = setInterval(createFlower, 1200);
         }
     }
 
@@ -89,7 +85,6 @@ document.addEventListener("DOMContentLoaded", function () {
         flowerInterval = null;
     }
 
-    
     document.addEventListener("visibilitychange", function () {
         if (document.hidden) {
             stopFlowerEffect();
@@ -98,9 +93,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    
     startFlowerEffect();
 });
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const loadingScreen = document.querySelector(".loading-screen");
