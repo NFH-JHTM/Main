@@ -342,3 +342,9 @@ body {
     font-weight: bold;
     font-family: 'Itim', cursive;
 }
+
+.small-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
