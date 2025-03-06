@@ -1,344 +1,126 @@
-/* 🎀 Import font dễ thương */
-@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("Script Loaded! 🚀");
 
-body {
-    font-family: 'Itim', cursive;
-    background-color: #FFFFFF;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-}
+    // 🔹 Tạo Profile Card tự động trong Grid (Trang Chủ)
+    let grid = document.getElementById("memberGrid");
+    if (grid) {
+        for (let i = 1; i <= 28; i++) {
+            let card = document.createElement("a");
+            card.href = `pages/person${i}.html`;
+            card.classList.add("card");
 
-/* 🔝 Header */
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    max-width: 1200px;
-    margin: auto;
-}
+            card.innerHTML = `
+                <img src="images/person${i}.jpg" alt="Person ${i}">
+                <div class="info">
+                    <p>Nhân vật ${i}</p>
+                </div>
+            `;
 
-/* 🌸 Tiêu đề */
-.title {
-    font-size: 2rem;
-    color: #ff69b4;
-    text-align: left;
-    margin: 0;
-}
-
-/* 🔍 Search Bar */
-#searchBar {
-    width: 200px;
-    padding: 8px;
-    border-radius: 20px;
-    border: 2px solid #ff69b4;
-    font-size: 1rem;
-    outline: none;
-    transition: 0.3s;
-    font-family: 'Itim', cursive;
-}
-
-#searchBar:focus {
-    width: 250px;
-}
-
-/* 🔳 Grid Layout cho trang chủ */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    justify-content: center;
-    padding: 20px;
-    align-items: start;
-}
-
-/* 🃏 Profile Card */
-.card {
-    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    text-decoration: none;
-    color: black;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 280px;
-}
-
-/* 🃏 Hover effect */
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* 🖼 Avatar */
-.avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid white;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    margin-bottom: 10px;
-}
-
-/* 🔤 Thông tin trên card */
-.info h2 {
-    font-size: 1.1rem;
-    color: #d63384;
-    margin: 10px 0 5px;
-    text-align: center;
-    font-family: 'Itim', cursive;
-}
-
-.info p {
-    font-size: 0.85rem;
-    color: #555;
-    margin-bottom: 5px;
-    font-family: 'Itim', cursive;
-}
-
-/* 📄 Profile Card (Lovely Theme) */
-.profile-container {
-    width: 100%;
-    max-width: 450px;
-    margin: 50px auto;
-    padding: 20px;
-    text-align: center;
-    background: linear-gradient(135deg, #ffdde1, #ffc1cc);
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    animation: fadeIn 0.5s forwards;
-    border: 2px solid #ff8fa3;
-}
-
-/* ✨ Transition khi vào trang cá nhân */
-@keyframes fadeIn {
-    from {
-        transform: translateY(20px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-/* 🖼 Avatar lớn */
-.profile-avatar {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 5px solid white;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    margin-bottom: 10px;
-}
-
-/* 📝 Profile Info */
-.profile-info {
-    width: 90%;
-    text-align: center;
-    font-family: 'Itim', cursive;
-}
-
-.profile-name {
-    font-size: 26px;
-    font-weight: bold;
-    color: #d63384;
-    margin-bottom: 5px;
-    font-family: 'Itim', cursive;
-}
-
-.profile-bio {
-    font-size: 16px;
-    color: #555;
-    background: white;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    font-family: 'Itim', cursive;
-}
-
-/* 💖 Traits (Thông tin cá nhân dạng bảng) */
-.traits {
-    width: 90%;
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 15px;
-    text-align: left;
-}
-
-.traits h3 {
-    color: #d63384;
-    text-align: center;
-    margin-bottom: 10px;
-    font-family: 'Itim', cursive;
-}
-
-.traits ul {
-    padding: 0;
-    list-style: none;
-}
-
-.traits ul li {
-    font-size: 14px;
-    color: #555;
-    padding: 8px;
-    background: #ffe4ec;
-    margin-bottom: 5px;
-    border-radius: 8px;
-    font-family: 'Itim', cursive;
-}
-
-/* 🔙 Nút quay lại */
-.back-button {
-    display: inline-block;
-    padding: 8px 15px;
-    background: #ff85a2;
-    color: white;
-    text-decoration: none;
-    border-radius: 10px;
-    transition: 0.3s;
-    margin-top: 15px;
-    font-weight: bold;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    border: 2px solid #ff5b8a;
-    font-family: 'Itim', cursive;
-}
-
-.back-button:hover {
-    background: #ff5b8a;
-    transform: scale(1.08);
-}
-
-/* 📱 Responsive */
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
+            grid.appendChild(card);
+        }
     }
 
-    #searchBar {
-        width: 100%;
-        max-width: 250px;
+    // 🔍 Search Function - Tìm kiếm Profile
+    let searchBar = document.getElementById("searchBar");
+    if (searchBar) {
+        searchBar.addEventListener("keyup", function () {
+            let input = searchBar.value.toLowerCase();
+            let cards = document.querySelectorAll(".card");
+
+            cards.forEach(card => {
+                let name = card.querySelector(".info p").innerText.toLowerCase();
+                card.style.display = name.includes(input) ? "block" : "none";
+            });
+        });
     }
 
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
+    // 🃏 Hover Effect cho Card (Trang Chủ)
+    let cards = document.querySelectorAll(".card");
+    cards.forEach(card => {
+        card.addEventListener("mouseenter", () => {
+            card.style.transform = "translateY(-5px)";
+            card.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.2)";
+        });
+
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "translateY(0)";
+            card.style.boxShadow = "0 4px 10px rgba(0, 0, 0, 0.1)";
+        });
+    });
+
+    // 🌸 Hiệu ứng Hoa Rơi (Chỉ Trong Trang Cá Nhân)
+    const profilePage = document.querySelector(".profile-container");
+    if (profilePage) {
+        const maxFlowers = 15;
+        let flowers = [];
+        let flowerInterval;
+
+        function createFlower() {
+            if (flowers.length >= maxFlowers) return;
+
+            const flower = document.createElement("div");
+            flower.classList.add("floating-flower");
+            flower.innerHTML = "🌸";
+
+            flower.style.left = Math.random() * window.innerWidth + "px";
+            flower.style.animationDuration = (Math.random() * 5 + 3) + "s";
+            flower.style.opacity = Math.random() * 0.8 + 0.2;
+
+            document.body.appendChild(flower);
+            flowers.push(flower);
+
+            setTimeout(() => {
+                flower.remove();
+                flowers = flowers.filter(f => f !== flower);
+            }, 8000);
+        }
+
+        function startFlowerEffect() {
+            if (!flowerInterval) {
+                flowerInterval = setInterval(createFlower, 1200);
+            }
+        }
+
+        function stopFlowerEffect() {
+            clearInterval(flowerInterval);
+            flowerInterval = null;
+        }
+
+        document.addEventListener("visibilitychange", function () {
+            if (document.hidden) {
+                stopFlowerEffect();
+            } else {
+                startFlowerEffect();
+            }
+        });
+
+        startFlowerEffect();
     }
-}
 
+    // ⏳ Loading Screen (Chỉ Chạy Ở Trang Chủ)
+    const loadingScreen = document.querySelector(".loading-screen");
+    if (loadingScreen) {
+        let progress = 0;
 
-.profile-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding: 20px;
-}
+        function updateLoading() {
+            progress += Math.random() * 5 + 3;
+            if (progress > 100) progress = 100;
 
+            document.querySelector(".loading-bar").style.width = progress + "%";
+            document.querySelector(".loading-text").innerText = `Loading... ${Math.floor(progress)}%`;
 
-.home-page {
-    background: url('/Main/images/backgroundmain.jpg') no-repeat center center fixed;
-    background-size: cover;
-}
+            if (progress < 100) {
+                setTimeout(updateLoading, 300);
+            } else {
+                setTimeout(() => {
+                    loadingScreen.style.opacity = "0";
+                    setTimeout(() => {
+                        loadingScreen.style.display = "none";
+                    }, 500);
+                }, 500);
+            }
+        }
 
-
-.profile-page {
-    background: url('/Main/images/backgroundprofile.jpg') no-repeat center center fixed;
-    background-size: cover;
-}
-
-
-.small-img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-}
-
-/* 🌸 Hoa rơi mượt */
-.floating-flower {
-    position: fixed;
-    font-size: 24px;
-    opacity: 0.8;
-    pointer-events: none; /* Không ảnh hưởng UI */
-    animation: floatDown linear forwards;
-    z-index: 10;
-}
-
-/* 🎭 Animation hoa rơi */
-@keyframes floatDown {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
+        setTimeout(updateLoading, 500);
     }
-    100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-/* 🎀 Loading Screen */
-.loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: linear-gradient(135deg, #ffdde1, #ffc1cc);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    z-index: 9999;
-    transition: opacity 0.5s ease-out;
-}
-
-/* 🌸 Loading Emoji */
-.loading-emoji {
-    font-size: 40px;
-    animation: shake 0.6s infinite alternate ease-in-out;
-}
-
-/* 🔋 Loading Bar */
-.loading-bar-container {
-    width: 80%;
-    max-width: 300px;
-    height: 15px;
-    background: white;
-    border-radius: 10px;
-    margin-top: 10px;
-    border: 2px solid #ff85a2;
-    overflow: hidden;
-    position: relative;
-}
-
-.loading-bar {
-    height: 100%;
-    width: 0;
-    background: linear-gradient(90deg, #ff69b4, #ff1493);
-    border-radius: 10px;
-    transition: width 0.3s ease-out;
-}
-
-/* 🎭 Loading Text */
-.loading-text {
-    margin-top: 10px;
-    font-size: 18px;
-    color: #ff4081;
-    font-weight: bold;
-}
+});
