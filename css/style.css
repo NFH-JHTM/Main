@@ -7,7 +7,6 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
-    overflow-x: hidden; /* Tránh bị tràn ngang */
 }
 
 /* 🔝 Header */
@@ -48,9 +47,9 @@ body {
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
-    padding: 20px;
+    gap: 20px;
     justify-content: center;
+    padding: 20px;
     align-items: start;
 }
 
@@ -63,7 +62,7 @@ body {
     text-align: center;
     text-decoration: none;
     color: black;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -74,8 +73,8 @@ body {
 
 /* 🃏 Hover effect */
 .card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* 🖼 Avatar */
@@ -107,7 +106,7 @@ body {
 
 /* 📄 Profile Card (Lovely Theme) */
 .profile-container {
-    width: 90%;
+    width: 100%;
     max-width: 450px;
     margin: 50px auto;
     padding: 20px;
@@ -181,6 +180,28 @@ body {
     text-align: left;
 }
 
+.traits h3 {
+    color: #d63384;
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'Itim', cursive;
+}
+
+.traits ul {
+    padding: 0;
+    list-style: none;
+}
+
+.traits ul li {
+    font-size: 14px;
+    color: #555;
+    padding: 8px;
+    background: #ffe4ec;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    font-family: 'Itim', cursive;
+}
+
 /* 🔙 Nút quay lại */
 .back-button {
     display: inline-block;
@@ -202,12 +223,51 @@ body {
     transform: scale(1.08);
 }
 
-/* 🌸 Hiệu ứng Hoa Rơi (Chỉ trong Trang Cá Nhân) */
-.profile-page .floating-flower {
+/* 📱 Responsive */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #searchBar {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+.profile-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+
+.home-page {
+    background: url('/Main/images/backgroundmain.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+
+.profile-page {
+    background: url('/Main/images/backgroundprofile.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* 🌸 Hoa rơi mượt */
+.floating-flower {
     position: fixed;
     font-size: 24px;
     opacity: 0.8;
-    pointer-events: none;
+    pointer-events: none; /* Không ảnh hưởng UI */
     animation: floatDown linear forwards;
     z-index: 10;
 }
@@ -247,16 +307,38 @@ body {
     animation: shake 0.6s infinite alternate ease-in-out;
 }
 
+/* 🌸 Shake Effect */
 @keyframes shake {
     0% { transform: translateX(-5px); }
     100% { transform: translateX(5px); }
 }
 
 /* 🔋 Loading Bar */
+.loading-bar-container {
+    width: 80%;
+    max-width: 300px;
+    height: 15px;
+    background: white;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: 2px solid #ff85a2;
+    overflow: hidden;
+    position: relative;
+}
+
 .loading-bar {
     height: 100%;
     width: 0;
     background: linear-gradient(90deg, #ff69b4, #ff1493);
     border-radius: 10px;
     transition: width 0.3s ease-out;
+}
+
+/* 🎭 Loading Text */
+.loading-text {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #ff4081;
+    font-weight: bold;
+    font-family: 'Itim', cursive;
 }
