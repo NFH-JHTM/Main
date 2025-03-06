@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
             card.classList.add("card");
 
             card.innerHTML = `
-                <img src="images/person${i}.jpg" alt="Person ${i}">
+                <img src="images/person${i}.webp" alt="Person ${i}">
                 <div class="info">
                     <p>Nhân vật ${i}</p>
                 </div>
