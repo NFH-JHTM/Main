@@ -10,16 +10,15 @@ document.addEventListener("DOMContentLoaded", function () {
             card.classList.add("card");
 
             card.innerHTML = `
-                <img src="images/person${i}.jpg" class="avatar" loading="lazy">
-                <div class="info">
-                    <h2>Nhân vật ${i}</h2>
-                    <p>✨ Skibidi toilet</p>
-                </div>
-            `;
+    <img src="images/person${i}.jpg" class="avatar small-img" loading="lazy" 
+         onmouseover="this.classList.remove('small-img')" 
+         onmouseout="this.classList.add('small-img')">
+    <div class="info">
+        <h2>Nhân vật ${i}</h2>
+        <p>✨ Skibidi toilet</p>
+    </div>
+`;
 
-            grid.appendChild(card);
-        }
-    }
 
     // 🔍 Search Function - Tìm kiếm Profile
     let searchBar = document.getElementById("searchBar");
