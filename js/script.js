@@ -98,29 +98,42 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ⏳ Loading Screen (Chỉ Chạy Ở Trang Chủ)
-    const loadingScreen = document.querySelector(".loading-screen");
-    if (loadingScreen) {
-        let progress = 0;
+     const loadingScreen = document.querySelector(".loading-screen");
+    const loadingBar = document.querySelector(".loading-bar");
+    const loadingText = document.querySelector(".loading-text");
 
-        function updateLoading() {
-            progress += Math.random() * 5 + 3;
-            if (progress > 100) progress = 100;
-
-            document.querySelector(".loading-bar").style.width = progress + "%";
-            document.querySelector(".loading-text").innerText = `Loading... ${Math.floor(progress)}%`;
-
-            if (progress < 100) {
-                setTimeout(updateLoading, 300);
-            } else {
-                setTimeout(() => {
-                    loadingScreen.style.opacity = "0";
-                    setTimeout(() => {
-                        loadingScreen.style.display = "none";
-                    }, 500);
-                }, 500);
-            }
-        }
-
-        setTimeout(updateLoading, 500);
+    if (!loadingScreen || !loadingBar || !loadingText) {
+        console.error("❌ Không tìm thấy phần tử loading!");
+        return;
     }
+
+    // Kiểm tra nếu đến từ trang cá nhân thì bỏ qua loading
+    if (document.referrer.includes("person")) {
+        loadingScreen.style.display = "none";
+        return;
+    }
+
+    let progress = 0;
+
+    function updateLoading() {
+        progress += Math.random() * 5 + 3; // Tăng từ 3% - 8% mỗi lần
+        if (progress > 100) progress = 100;
+
+        loadingBar.style.width = progress + "%";
+        loadingText.innerText = `Loading... ${Math.floor(progress)}%`;
+
+        if (progress < 100) {
+            setTimeout(updateLoading, 300);
+        } else {
+            setTimeout(() => {
+                loadingScreen.style.opacity = "0"; // Làm mờ loading
+                setTimeout(() => {
+                    loadingScreen.style.display = "none"; // Ẩn hoàn toàn
+                }, 500);
+            }, 500);
+        }
+    }
+
+    // Chạy loading sau 0.5s để tránh lag
+    setTimeout(updateLoading, 500);
 });
