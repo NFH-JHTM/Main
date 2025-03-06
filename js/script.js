@@ -48,39 +48,39 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (!document.querySelector(".profile-container")) return; // Chỉ chạy trong trang cá nhân
+    if (!document.querySelector(".profile-container")) return; 
 
-    const maxFlowers = 15; // 🌸 Giữ giới hạn hoa tối đa là 15
+    const maxFlowers = 15; 
     let flowers = [];
     let flowerInterval;
 
     function createFlower() {
-        if (flowers.length >= maxFlowers) return; // Nếu đủ 15 hoa thì không tạo thêm
+        if (flowers.length >= maxFlowers) return; 
 
         const flower = document.createElement("div");
         flower.classList.add("floating-flower");
         flower.innerHTML = "🌸";
 
-        // Vị trí random quanh màn hình nhưng giới hạn trong vùng profile
+        
         flower.style.left = Math.random() * window.innerWidth * 0.9 + "px";
         flower.style.top = "-50px"; 
-        flower.style.animationDuration = (Math.random() * 4 + 3) + "s"; // 3-7 giây
-        flower.style.fontSize = Math.random() * 10 + 20 + "px"; // Kích thước từ 20px - 30px
+        flower.style.animationDuration = (Math.random() * 4 + 3) + "s"; 
+        flower.style.fontSize = Math.random() * 10 + 20 + "px"; 
 
         document.body.appendChild(flower);
         flowers.push(flower);
 
-        // Xóa sau khi hoàn thành animation
+        
         setTimeout(() => {
             flower.remove();
-            flowers.shift(); // Xóa khỏi mảng để tiếp tục tạo hoa mới
+            flowers.shift(); 
         }, 7000);
     }
 
-    // 🌸 Tạo hoa mỗi 1200ms
+    
     function startFlowerEffect() {
         if (!flowerInterval) {
-            flowerInterval = setInterval(createFlower, 1200);
+            flowerInterval = setInterval(createFlower, 1500);
         }
     }
 
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
         flowerInterval = null;
     }
 
-    // Khi tab bị ẩn, dừng tạo hoa
+    
     document.addEventListener("visibilitychange", function () {
         if (document.hidden) {
             stopFlowerEffect();
@@ -98,6 +98,48 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Bắt đầu hiệu ứng hoa khi trang load
+    
     startFlowerEffect();
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const loadingScreen = document.querySelector(".loading-screen");
+    const loadingBar = document.querySelector(".loading-bar");
+    const loadingText = document.querySelector(".loading-text");
+
+    if (!loadingScreen || !loadingBar || !loadingText) {
+        console.error("Lỗi: Không tìm thấy phần tử loading.");
+        return;
+    }
+
+    // Kiểm tra nếu đến từ trang cá nhân thì bỏ qua loading
+    const previousPage = document.referrer;
+    if (previousPage.includes("person")) {
+        loadingScreen.style.display = "none";
+        return;
+    }
+
+    let progress = 0;
+
+    function updateLoading() {
+        progress += Math.random() * 5 + 3; // Tăng từ 3% - 8% mỗi lần
+        if (progress > 100) progress = 100;
+
+        loadingBar.style.width = progress + "%";
+        loadingText.innerText = `Loading... ${Math.floor(progress)}%`;
+
+        if (progress < 100) {
+            setTimeout(updateLoading, 300);
+        } else {
+            setTimeout(() => {
+                loadingScreen.style.opacity = "0"; // Làm mờ loading
+                setTimeout(() => {
+                    loadingScreen.style.display = "none"; // Ẩn hoàn toàn
+                }, 500);
+            }, 500);
+        }
+    }
+
+    setTimeout(updateLoading, 500); // Bắt đầu loading sau 0.5s để tránh lag
+});
+
