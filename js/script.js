@@ -10,11 +10,12 @@ document.addEventListener("DOMContentLoaded", function () {
             card.classList.add("card");
 
             card.innerHTML = `
-                <img src="images/person${i}.jpg" alt="Person ${i}">
-                <div class="info">
-                    <p>Nhân vật ${i}</p>
-                </div>
-            `;
+    <img src="images/person${i}.jpg" class="avatar" loading="lazy">
+    <div class="info">
+        <h2>Nhân vật ${i}</h2>
+        <p>✨ Skibidi toilet</p>
+    </div>
+`;
 
             grid.appendChild(card);
         }
