@@ -1,42 +1,26 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("🚀 Script Loaded!");
+    console.log("Script Loaded! 🚀");
 
-    // 📌 Chỉ tạo profile card khi đang ở trang chủ
-    let grid = document.querySelector(".grid");
-    if (grid && !grid.dataset.loaded) {
-        grid.dataset.loaded = "true"; // Đánh dấu đã tạo để tránh duplicate
-
-        const members = [
-            "Bùi Lê Anh", "Phạm Thanh Mai", "Quách Nguyễn Mai Anh",
-            "Nguyễn Ngọc Trà Giang", "Đỗ Gia Hân", "Nguyễn Ngọc Gia Hân",
-            "Nguyễn Thanh Phúc An", "Nguyễn Hoàng Ngân", "Phạm Huỳnh Bảo Nghi",
-            "Dương Ngọc Uyển Nhi", "Lê Trần Thanh Phúc", "Đinh Ngọc Đông Phương",
-            "Nhan Lệ San", "Đoàn Trần Gia Thanh", "Đinh Minh Thùy",
-            "Phạm Anh Thư", "Nguyễn Đặng Ánh Tiên", "Nguyễn Hoàn Ngọc Yến Trang",
-            "Nguyễn Ngọc Minh Trang", "Trần Hoài Khánh Tường", "Phan Lê Phương Uyên",
-            "Trần Phương Uyên", "Trần Tú Uyên", "Vũ Kiều Oanh",
-            "Võ Bảo Nguyên", "Nguyễn Thị Phương Vi", "Lê Nguyên Vy",
-            "Nguyễn Quỳnh Hương"
-        ];
-
-        members.forEach((name, index) => {
+    // 🔹 Tạo Profile Card tự động trong Grid (Trang Chủ)
+    let grid = document.getElementById("memberGrid");
+    if (grid) {
+        for (let i = 1; i <= 28; i++) {
             let card = document.createElement("a");
-            card.href = `pages/person${index + 1}.html`;
+            card.href = `pages/person${i}.html`;
             card.classList.add("card");
 
             card.innerHTML = `
-                <img src="images/person${index + 1}.jpg" class="avatar lazy-load" loading="lazy">
+                <img src="images/person${i}.jpg" alt="Person ${i}">
                 <div class="info">
-                    <h2>${name}</h2>
-                    <p>✨ Thành viên 12A8</p>
+                    <p>Nhân vật ${i}</p>
                 </div>
             `;
 
             grid.appendChild(card);
-        });
+        }
     }
 
-    // 🔍 Tìm kiếm Profile Card
+    // 🔍 Search Function - Tìm kiếm Profile
     let searchBar = document.getElementById("searchBar");
     if (searchBar) {
         searchBar.addEventListener("keyup", function () {
@@ -44,14 +28,15 @@ document.addEventListener("DOMContentLoaded", function () {
             let cards = document.querySelectorAll(".card");
 
             cards.forEach(card => {
-                let name = card.querySelector(".info h2").innerText.toLowerCase();
+                let name = card.querySelector(".info p").innerText.toLowerCase();
                 card.style.display = name.includes(input) ? "block" : "none";
             });
         });
     }
 
-    // ✨ Hover effect cho Card
-    document.querySelectorAll(".card").forEach(card => {
+    // 🃏 Hover Effect cho Card (Trang Chủ)
+    let cards = document.querySelectorAll(".card");
+    cards.forEach(card => {
         card.addEventListener("mouseenter", () => {
             card.style.transform = "translateY(-5px)";
             card.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.2)";
@@ -64,18 +49,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // 🌸 Hiệu ứng Hoa Rơi (Chỉ Trong Trang Cá Nhân)
-    if (document.querySelector(".profile-container")) {
-        let maxFlowers = 15;
+    const profilePage = document.querySelector(".profile-container");
+    if (profilePage) {
+        const maxFlowers = 15;
         let flowers = [];
+        let flowerInterval;
 
         function createFlower() {
             if (flowers.length >= maxFlowers) return;
 
-            let flower = document.createElement("div");
+            const flower = document.createElement("div");
             flower.classList.add("floating-flower");
             flower.innerHTML = "🌸";
+
             flower.style.left = Math.random() * window.innerWidth + "px";
-            flower.style.animationDuration = `${Math.random() * 5 + 3}s`;
+            flower.style.animationDuration = (Math.random() * 5 + 3) + "s";
             flower.style.opacity = Math.random() * 0.8 + 0.2;
 
             document.body.appendChild(flower);
@@ -87,31 +75,39 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 8000);
         }
 
-        let flowerInterval = setInterval(createFlower, 1200);
+        function startFlowerEffect() {
+            if (!flowerInterval) {
+                flowerInterval = setInterval(createFlower, 1200);
+            }
+        }
+
+        function stopFlowerEffect() {
+            clearInterval(flowerInterval);
+            flowerInterval = null;
+        }
 
         document.addEventListener("visibilitychange", function () {
             if (document.hidden) {
-                clearInterval(flowerInterval);
-                flowerInterval = null;
-            } else if (!flowerInterval) {
-                flowerInterval = setInterval(createFlower, 1200);
+                stopFlowerEffect();
+            } else {
+                startFlowerEffect();
             }
         });
+
+        startFlowerEffect();
     }
 
     // ⏳ Loading Screen (Chỉ Chạy Ở Trang Chủ)
-    let loadingScreen = document.querySelector(".loading-screen");
-    if (loadingScreen && !sessionStorage.getItem("loadedBefore")) {
+    const loadingScreen = document.querySelector(".loading-screen");
+    if (loadingScreen) {
         let progress = 0;
-        let loadingBar = document.querySelector(".loading-bar");
-        let loadingText = document.querySelector(".loading-text");
 
         function updateLoading() {
             progress += Math.random() * 5 + 3;
             if (progress > 100) progress = 100;
 
-            loadingBar.style.width = progress + "%";
-            loadingText.innerText = `Loading... ${Math.floor(progress)}%`;
+            document.querySelector(".loading-bar").style.width = progress + "%";
+            document.querySelector(".loading-text").innerText = `Loading... ${Math.floor(progress)}%`;
 
             if (progress < 100) {
                 setTimeout(updateLoading, 300);
@@ -120,14 +116,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     loadingScreen.style.opacity = "0";
                     setTimeout(() => {
                         loadingScreen.style.display = "none";
-                        sessionStorage.setItem("loadedBefore", "true");
                     }, 500);
                 }, 500);
             }
         }
 
         setTimeout(updateLoading, 500);
-    } else if (loadingScreen) {
-        loadingScreen.style.display = "none";
     }
 });
