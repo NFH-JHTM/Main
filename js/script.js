@@ -1,57 +1,27 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Script Loaded! 🚀");
 
-    // 🔹 Tạo Profile Card tự động trong Grid (Trang Chủ)
-    let grid = document.getElementById("memberGrid");
-    if (grid) {
-        for (let i = 1; i <= 28; i++) {
-            let card = document.createElement("a");
-            card.href = `pages/person${i}.html`;
-            card.classList.add("card");
-
-            card.innerHTML = `
-                <img src="images/person${i}.jpg" alt="Person ${i}">
-                <div class="info">
-                    <p>Nhân vật ${i}</p>
-                </div>
-            `;
-
-            grid.appendChild(card);
-        }
-    }
-
-    // 🔍 Search Function - Tìm kiếm Profile
-    let searchBar = document.getElementById("searchBar");
-    if (searchBar) {
-        searchBar.addEventListener("keyup", function () {
-            let input = searchBar.value.toLowerCase();
-            let cards = document.querySelectorAll(".card");
-
-            cards.forEach(card => {
-                let name = card.querySelector(".info p").innerText.toLowerCase();
-                card.style.display = name.includes(input) ? "block" : "none";
-            });
-        });
-    }
-
-    // 🃏 Hover Effect cho Card (Trang Chủ)
-    let cards = document.querySelectorAll(".card");
-    cards.forEach(card => {
-        card.addEventListener("mouseenter", () => {
-            card.style.transform = "translateY(-5px)";
-            card.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.2)";
-        });
-
-        card.addEventListener("mouseleave", () => {
-            card.style.transform = "translateY(0)";
-            card.style.boxShadow = "0 4px 10px rgba(0, 0, 0, 0.1)";
+    // 📌 Lazy Load Ảnh - Chỉ tải khi cần
+    let lazyImages = document.querySelectorAll("img.avatar");
+    let lazyObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                let img = entry.target;
+                img.src = img.dataset.src; // Tải ảnh
+                img.classList.add("fade-in");
+                observer.unobserve(img);
+            }
         });
     });
 
-    // 🌸 Hiệu ứng Hoa Rơi (Chỉ Trong Trang Cá Nhân)
+    lazyImages.forEach(img => {
+        lazyObserver.observe(img);
+    });
+
+    // 🔹 Giới hạn hiệu ứng hoa rơi để không lag
     const profilePage = document.querySelector(".profile-container");
     if (profilePage) {
-        const maxFlowers = 15;
+        const maxFlowers = 10; // Giảm số lượng hoa để tránh lag
         let flowers = [];
         let flowerInterval;
 
@@ -77,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         function startFlowerEffect() {
             if (!flowerInterval) {
-                flowerInterval = setInterval(createFlower, 1200);
+                flowerInterval = setInterval(createFlower, 1500);
             }
         }
 
@@ -97,30 +67,73 @@ document.addEventListener("DOMContentLoaded", function () {
         startFlowerEffect();
     }
 
-    // ⏳ Loading Screen (Chỉ Chạy Ở Trang Chủ)
+    // 🔹 Tối ưu Loading Screen - Load nhanh hơn
     const loadingScreen = document.querySelector(".loading-screen");
     if (loadingScreen) {
         let progress = 0;
 
         function updateLoading() {
-            progress += Math.random() * 5 + 3;
+            progress += Math.random() * 10 + 5; // Load nhanh hơn
             if (progress > 100) progress = 100;
 
             document.querySelector(".loading-bar").style.width = progress + "%";
             document.querySelector(".loading-text").innerText = `Loading... ${Math.floor(progress)}%`;
 
             if (progress < 100) {
-                setTimeout(updateLoading, 300);
+                setTimeout(updateLoading, 200); // Giảm delay
             } else {
                 setTimeout(() => {
                     loadingScreen.style.opacity = "0";
                     setTimeout(() => {
                         loadingScreen.style.display = "none";
-                    }, 500);
-                }, 500);
+                    }, 400);
+                }, 400);
             }
         }
 
-        setTimeout(updateLoading, 500);
+        setTimeout(updateLoading, 200);
+    }
+
+    // 🔹 Hiển thị 10 profile card đầu tiên, scroll mới load thêm
+    let grid = document.querySelector(".grid");
+    if (grid) {
+        let loadedCount = 10; // Số card ban đầu
+        let totalMembers = 28;
+
+        function loadMoreCards() {
+            let fragment = document.createDocumentFragment();
+            let end = Math.min(loadedCount + 10, totalMembers);
+
+            for (let i = loadedCount + 1; i <= end; i++) {
+                let card = document.createElement("a");
+                card.href = `pages/person${i}.html`;
+                card.classList.add("card");
+
+                card.innerHTML = `
+                    <img data-src="images/person${i}.jpg" class="avatar lazy">
+                    <div class="info">
+                        <h2>Nhân vật ${i}</h2>
+                        <p>✨ Lovely Member</p>
+                    </div>
+                `;
+
+                fragment.appendChild(card);
+            }
+
+            grid.appendChild(fragment);
+            loadedCount += 10;
+
+            if (loadedCount >= totalMembers) {
+                window.removeEventListener("scroll", scrollHandler);
+            }
+        }
+
+        function scrollHandler() {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+                loadMoreCards();
+            }
+        }
+
+        window.addEventListener("scroll", scrollHandler);
     }
 });
