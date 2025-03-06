@@ -48,12 +48,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Kiểm tra nếu đang ở trang cá nhân (chỉ chạy ở personX.html)
-    const profilePage = document.querySelector(".profile-container");
-    if (!profilePage) return;
+    if (!document.querySelector(".profile-container")) return; // Chỉ chạy trong trang cá nhân
 
-    const maxFlowers = 15; // 🌸 Giới hạn số hoa tối đa
+    const maxFlowers = 15; // 🌸 Giữ giới hạn hoa tối đa là 15
     let flowers = [];
+    let flowerInterval;
 
     function createFlower() {
         if (flowers.length >= maxFlowers) return; // Nếu đủ 15 hoa thì không tạo thêm
@@ -62,23 +61,43 @@ document.addEventListener("DOMContentLoaded", function () {
         flower.classList.add("floating-flower");
         flower.innerHTML = "🌸";
 
-        // Vị trí random trong khung profile, tránh che nội dung chính
-        flower.style.left = Math.random() * window.innerWidth * 0.8 + "px";
-        flower.style.top = "-50px";
+        // Vị trí random quanh màn hình nhưng giới hạn trong vùng profile
+        flower.style.left = Math.random() * window.innerWidth * 0.9 + "px";
+        flower.style.top = "-50px"; 
         flower.style.animationDuration = (Math.random() * 4 + 3) + "s"; // 3-7 giây
-        flower.style.fontSize = Math.random() * 10 + 20 + "px"; // Kích thước ngẫu nhiên
+        flower.style.fontSize = Math.random() * 10 + 20 + "px"; // Kích thước từ 20px - 30px
 
         document.body.appendChild(flower);
         flowers.push(flower);
 
-        // Xóa hoa sau khi hoàn thành animation
+        // Xóa sau khi hoàn thành animation
         setTimeout(() => {
             flower.remove();
             flowers.shift(); // Xóa khỏi mảng để tiếp tục tạo hoa mới
         }, 7000);
     }
 
-    // 🌸 Giảm tần suất tạo hoa (mượt hơn, tránh lag)
-    setInterval(createFlower, 1200);
-});
+    // 🌸 Tạo hoa mỗi 1200ms
+    function startFlowerEffect() {
+        if (!flowerInterval) {
+            flowerInterval = setInterval(createFlower, 1200);
+        }
+    }
 
+    function stopFlowerEffect() {
+        clearInterval(flowerInterval);
+        flowerInterval = null;
+    }
+
+    // Khi tab bị ẩn, dừng tạo hoa
+    document.addEventListener("visibilitychange", function () {
+        if (document.hidden) {
+            stopFlowerEffect();
+        } else {
+            startFlowerEffect();
+        }
+    });
+
+    // Bắt đầu hiệu ứng hoa khi trang load
+    startFlowerEffect();
+});
