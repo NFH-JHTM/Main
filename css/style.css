@@ -374,12 +374,13 @@ body {
 }
 }
 
-/* 📜 Panel Morse Code - Hiển thị lệch xuống dưới & qua phải */
+/* 📜 Panel Morse Code (Ẩn mặc định, luôn căn giữa) */
 .morse-panel {
-    display: none;
+    display: none; /* Đảm bảo ẩn ban đầu */
     position: fixed;
-    top: 50px; /* Cách nút "?" 35px để không đè lên */
-    left: 20px; /* Cách trái một chút */
+    top: 50px; /* Cách nút ? một chút */
+    left: 50%; /* Căn giữa */
+    transform: translateX(-50%); /* Giữ chính giữa */
     width: 220px;
     padding: 10px;
     background: rgba(0, 0, 0, 0.9);
@@ -390,14 +391,15 @@ body {
     font-family: 'Courier New', Courier, monospace;
     font-size: 16px;
     box-shadow: 0 3px 10px rgba(255, 105, 180, 0.5);
-    z-index: 999; /* Đảm bảo nằm trên mọi thứ */
+    z-index: 999;
 }
 
-/* 📱 Responsive: Điều chỉnh panel trên màn hình nhỏ */
+/* 📱 Responsive: Đảm bảo căn giữa trên điện thoại */
 @media (max-width: 768px) {
     .morse-panel {
-        width: 180px; /* Nhỏ hơn trên màn hình nhỏ */
-        left: 10px; /* Cách lề trái ít hơn */
-        top: 60px; /* Dời xuống chút xíu */
+        width: 180px; /* Nhỏ hơn trên điện thoại */
+        left: 50%; /* Vẫn giữ chính giữa */
+        transform: translateX(-50%); /* Chắc chắn nằm giữa */
+        top: 60px;
     }
 }
