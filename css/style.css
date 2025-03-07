@@ -252,13 +252,13 @@ body {
 
 
 .home-page {
-    background: url('/Main/images/backgroundmain.jpg') no-repeat center center fixed;
+    background: url('/Main/images/backgroundmain.webp') no-repeat center center fixed;
     background-size: cover;
 }
 
 
 .profile-page {
-    background: url('/Main/images/backgroundprofile.jpg') no-repeat center center fixed;
+    background: url('/Main/images/backgroundprofile.webp') no-repeat center center fixed;
     background-size: cover;
 }
 
