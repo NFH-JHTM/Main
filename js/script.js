@@ -47,10 +47,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     <h2>${member.name}</h2>
                     <p>${member.desc}</p>
                 </div>
+                <div class="floating-flowers"></div> <!-- Hiệu ứng hoa rơi -->
             `;
 
             grid.appendChild(card);
         });
+
+        startFlowerEffect(".floating-flowers");
     }
 
     // 🔍 Search Function - Tìm kiếm Profile
@@ -78,9 +81,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 🌸 Hiệu ứng Hoa Rơi (Chỉ Trong Trang Cá Nhân)
-    const profilePage = document.querySelector(".profile-container");
-    if (profilePage) {
+    // 🌸 Hiệu ứng Hoa Rơi (Chạy trên cả Trang Cá Nhân và Trang Chủ)
+    function startFlowerEffect(containerSelector) {
         const maxFlowers = 10;
         let flowerInterval;
 
@@ -88,15 +90,16 @@ document.addEventListener("DOMContentLoaded", function () {
             const flower = document.createElement("div");
             flower.classList.add("floating-flower");
             flower.innerHTML = "🌸";
-            flower.style.left = Math.random() * window.innerWidth + "px";
+            flower.style.left = Math.random() * 100 + "%";
             flower.style.animationDuration = (Math.random() * 5 + 3) + "s";
             flower.style.opacity = Math.random() * 0.8 + 0.2;
-            document.body.appendChild(flower);
+
+            document.querySelector(containerSelector).appendChild(flower);
 
             setTimeout(() => flower.remove(), 8000);
         }
 
-        function startFlowerEffect() {
+        function startEffect() {
             flowerInterval = setInterval(() => {
                 if (document.querySelectorAll(".floating-flower").length < maxFlowers) {
                     createFlower();
@@ -104,19 +107,19 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 1200);
         }
 
-        function stopFlowerEffect() {
+        function stopEffect() {
             clearInterval(flowerInterval);
         }
 
         document.addEventListener("visibilitychange", function () {
             if (document.hidden) {
-                stopFlowerEffect();
+                stopEffect();
             } else {
-                startFlowerEffect();
+                startEffect();
             }
         });
 
-        startFlowerEffect();
+        startEffect();
     }
 
     // ⏳ Loading Screen (Fix: Chỉ xuất hiện lần đầu tiên khi truy cập từ web khác)
