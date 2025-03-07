@@ -342,3 +342,31 @@ body {
     font-weight: bold;
     font-family: 'Itim', cursive;
 }
+
+/* 📜 Panel Morse Code (Ẩn mặc định) */
+.morse-panel {
+    display: none; /* Đảm bảo ẩn ban đầu */
+    position: fixed;
+    top: 50px; /* Cách nút ? một chút */
+    left: 20px;
+    width: 220px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.9);
+    color: #ff69b4;
+    border: 2px solid #ff69b4;
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    box-shadow: 0 3px 10px rgba(255, 105, 180, 0.5);
+    z-index: 999;
+}
+
+/* 📱 Responsive: Điều chỉnh panel trên màn hình nhỏ */
+@media (max-width: 768px) {
+    .morse-panel {
+        width: 180px; /* Nhỏ hơn trên điện thoại */
+        left: 10px;
+        top: 60px;
+    }
+}
