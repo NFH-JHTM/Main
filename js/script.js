@@ -139,6 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+    document.addEventListener("DOMContentLoaded", function () {
     const morseButton = document.querySelector(".morse-button");
     const morsePanel = document.querySelector(".morse-panel");
 
