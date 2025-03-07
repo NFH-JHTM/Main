@@ -399,7 +399,7 @@ body {
     .morse-panel {
         width: 180px; /* Nhỏ hơn trên điện thoại */
         right: 50%; /* Giữ ở giữa */
-        transform: translate(-50%, 0); /* Đảm bảo không bị lệch */
+        transform: translate(50%, 0); /* Đảm bảo không bị lệch */
         top: 60px; /* Hơi thấp xuống chút */
     }
 }
