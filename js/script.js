@@ -59,9 +59,11 @@ document.getElementById("searchBar").addEventListener("keypress", function (even
         }
 
         searchCards(input); // Gọi hàm tìm kiếm
+        this.value = input; // Cập nhật lại giá trị vào ô tìm kiếm
         this.blur(); // Ẩn con trỏ chuột khỏi ô nhập
     }
 });
+
 
 document.addEventListener("DOMContentLoaded", function () {
     let grid = document.getElementById("memberGrid");
