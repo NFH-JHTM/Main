@@ -364,26 +364,25 @@ body {
 }
 
 /* 🔮 Nút "?" - Cố định góc trái trên màn hình */
-.morse-button {
+.morse-panel {
+    display: none; /* Đảm bảo ẩn ban đầu */
     position: fixed;
-    top: 15px; /* Cách trên 15px */
-    left: 15px; /* Cách trái 15px */
-    background: black;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 220px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.9);
     color: #ff69b4;
-    font-size: 16px;
-    font-weight: bold;
     border: 2px solid #ff69b4;
-    padding: 0;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    width: 30px; /* Kích thước nút */
-    height: 30px;
+    border-radius: 10px;
     text-align: center;
-    display: flex;
-    align-items: center; /* Canh giữa theo chiều dọc */
-    justify-content: center; /* Canh giữa theo chiều ngang */
-    z-index: 1000;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    box-shadow: 0 3px 10px rgba(255, 105, 180, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
 }
 
 /* 🌟 Hover hiệu ứng phát sáng */
