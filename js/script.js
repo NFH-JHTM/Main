@@ -80,17 +80,18 @@ document.addEventListener("DOMContentLoaded", function () {
     let flowers = [];
     const maxFlowers = 15; // 🔥 Giới hạn số hoa
     let isTabHidden = false;
+    let flowerInterval = null;
 
     function createFlower() {
-        if (flowers.length >= maxFlowers || isTabHidden) return; // Không spawn thêm nếu đủ số lượng hoặc tab ẩn
+        if (flowers.length >= maxFlowers || isTabHidden) return; // Không spawn nếu tab ẩn hoặc đủ số lượng
 
         let x = Math.random() * canvas.width;
         let y = -20;
-        let size = Math.random() * 25 + 15; // 🔥 Giới hạn kích thước hoa từ 15px - 40px
-        let speed = Math.random() * 2 + 1; // 🔥 Giữ tốc độ rơi bình thường
+        let size = Math.random() * 25 + 15;
+        let speed = Math.random() * 2 + 1;
         let waveAmplitude = Math.random() * 50 + 30;
-        let opacity = 1; // 🔥 Luôn bắt đầu với độ trong suốt 100%
-        let life = 0; // 🔥 Biến theo dõi thời gian sống của hoa
+        let opacity = 1;
+        let life = 0;
 
         flowers.push({ x, y, size, speed, waveAmplitude, opacity, life });
     }
@@ -103,9 +104,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             f.y += f.speed;
             f.x += Math.sin(f.y / 50) * f.waveAmplitude * 0.02;
-            f.life += 1; // 🔥 Tăng thời gian sống của hoa
+            f.life += 1;
 
-            // 🔥 Mờ dần khi gần chạm đất (Hoa sẽ biến mất ở 80% màn hình)
             if (f.y > canvas.height * 0.6) {
                 f.opacity = 1 - ((f.y - canvas.height * 0.6) / (canvas.height * 0.4));
             }
@@ -123,25 +123,52 @@ document.addEventListener("DOMContentLoaded", function () {
         requestAnimationFrame(animateFlowers);
     }
 
-    let flowerInterval = setInterval(createFlower, 1000);
-    animateFlowers();
+    function startFlowerEffect() {
+        clearInterval(flowerInterval);
+        flowerInterval = setInterval(createFlower, 1000);
+        requestAnimationFrame(animateFlowers);
+    }
 
-    // 📌 Dừng spawn hoa khi chuyển tab & tiếp tục khi quay lại
+    function stopFlowerEffect() {
+        clearInterval(flowerInterval);
+    }
+
+    startFlowerEffect();
+
+    // 📌 Dừng hiệu ứng khi chuyển tab & tiếp tục khi quay lại
     document.addEventListener("visibilitychange", function () {
         if (document.hidden) {
-            console.log("Tab bị ẩn - Dừng spawn hoa...");
+            console.log("Tab bị ẩn - Dừng hoa rơi...");
             isTabHidden = true;
-            clearInterval(flowerInterval);
+            stopFlowerEffect();
         } else {
-            console.log("Tab hiển thị lại - Tiếp tục spawn hoa!");
+            console.log("Tab hiển thị lại - Tiếp tục hoa rơi!");
             isTabHidden = false;
-            if (!flowerInterval) {
-                flowerInterval = setInterval(createFlower, 1000);
-            }
+            startFlowerEffect();
+        }
+    });
+
+    function pauseAnimations() {
+        flowers.forEach(flower => (flower.opacity = 0)); // Ẩn hoa thay vì xóa
+        let loadingBar = document.querySelector(".loading-bar");
+        if (loadingBar) loadingBar.style.animationPlayState = "paused";
+    }
+
+    function resumeAnimations() {
+        flowers.forEach(flower => (flower.opacity = 1)); // Hiện hoa lại
+        let loadingBar = document.querySelector(".loading-bar");
+        if (loadingBar) loadingBar.style.animationPlayState = "running";
+        startFlowerEffect();
+    }
+
+    document.addEventListener("visibilitychange", function () {
+        if (document.hidden) {
+            pauseAnimations();
+        } else {
+            resumeAnimations();
         }
     });
 });
-
 
 
 
@@ -220,8 +247,7 @@ document.addEventListener("visibilitychange", function () {
 });
 
 function pauseAnimations() {
-    let flowers = document.querySelectorAll(".floating-flower");
-    flowers.forEach(flower => flower.remove());
+    
 
     let loadingBar = document.querySelector(".loading-bar");
     if (loadingBar) loadingBar.style.animationPlayState = "paused";
@@ -230,8 +256,4 @@ function pauseAnimations() {
 function resumeAnimations() {
     let loadingBar = document.querySelector(".loading-bar");
     if (loadingBar) loadingBar.style.animationPlayState = "running";
-
-    if (document.querySelector(".profile-container")) {
-        setInterval(createFlower, 1000);
-    }
 }
