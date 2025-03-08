@@ -219,19 +219,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const morsePanel = document.querySelector(".morse-panel");
 
     if (morseButton && morsePanel) {
-        morsePanel.style.display = "none"; // Đảm bảo panel bị ẩn ban đầu
+        morsePanel.style.display = "none"; // Đảm bảo ẩn ban đầu
 
         morseButton.addEventListener("click", function () {
-            // Kiểm tra nếu panel đang mở, thì ẩn nó đi
-            if (morsePanel.style.display === "block") {
-                morsePanel.style.display = "none";
-            } else {
-                // Hiện panel
-                morsePanel.style.display = "block";
-
-                // Sau 5 giây tự động ẩn
+            if (morsePanel.classList.contains("show")) {
+                morsePanel.classList.remove("show");
                 setTimeout(() => {
-                    morsePanel.style.display = "none";
+                    morsePanel.style.display = "none"; // Ẩn sau khi animation kết thúc
+                }, 300); // Khớp với CSS transition
+            } else {
+                morsePanel.style.display = "block";
+                setTimeout(() => {
+                    morsePanel.classList.add("show");
+                }, 10); // Delay nhỏ để đảm bảo transition hoạt động
+
+                // Tự động ẩn sau 5 giây
+                setTimeout(() => {
+                    morsePanel.classList.remove("show");
+                    setTimeout(() => {
+                        morsePanel.style.display = "none";
+                    }, 300);
                 }, 5000);
             }
         });
