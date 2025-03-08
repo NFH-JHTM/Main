@@ -394,13 +394,409 @@ body {
 }
 }
 
+/* 🎀 Import font dễ thương */
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+
+body {
+    font-family: 'Itim', cursive;
+    background-color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* 🔝 Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* 🌸 Tiêu đề */
+.title {
+    font-size: 2rem;
+    color: #ff69b4;
+    text-align: left;
+    margin: 0;
+}
+
+/* 🔍 Search Bar */
+#searchBar {
+    width: 200px;
+    padding: 8px;
+    border-radius: 20px;
+    border: 2px solid #ff69b4;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+    font-family: 'Itim', cursive;
+}
+
+#searchBar:focus {
+    width: 250px;
+}
+
+/* 🔳 Grid Layout cho trang chủ */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    align-items: start;
+}
+
+/* 🃏 Profile Card */
+.card {
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 280px;
+}
+
+/* 🃏 Hover effect */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* 🖼 Avatar */
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+}
+
+/* 🔤 Thông tin trên card */
+.info h2 {
+    font-size: 1.1rem;
+    color: #d63384;
+    margin: 10px 0 5px;
+    text-align: center;
+    font-family: 'Itim', cursive;
+}
+
+.info p {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 5px;
+    font-family: 'Itim', cursive;
+}
+
+/* 📄 Profile Card (Lovely Theme) */
+.profile-container {
+    width: 100%;
+    max-width: 450px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #ffdde1, #ffc1cc);
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 0.5s forwards;
+    border: 2px solid #ff8fa3;
+}
+
+/* ✨ Transition khi vào trang cá nhân */
+@keyframes fadeIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 🖼 Avatar lớn */
+.profile-avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+}
+
+/* 📝 Profile Info */
+.profile-info {
+    width: 90%;
+    text-align: center;
+    font-family: 'Itim', cursive;
+}
+
+.profile-name {
+    font-size: 26px;
+    font-weight: bold;
+    color: #d63384;
+    margin-bottom: 5px;
+    font-family: 'Itim', cursive;
+}
+
+.profile-bio {
+    font-size: 16px;
+    color: #555;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Itim', cursive;
+}
+
+/* 💖 Traits (Thông tin cá nhân dạng bảng) */
+.traits {
+    width: 90%;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 15px;
+    text-align: left;
+}
+
+.traits h3 {
+    color: #d63384;
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'Itim', cursive;
+}
+
+.traits ul {
+    padding: 0;
+    list-style: none;
+}
+
+.traits ul li {
+    font-size: 14px;
+    color: #555;
+    padding: 8px;
+    background: #ffe4ec;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    font-family: 'Itim', cursive;
+}
+
+/* 🔙 Nút quay lại */
+.back-button {
+    display: inline-block;
+    padding: 8px 15px;
+    background: #ff85a2;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: 0.3s;
+    margin-top: 15px;
+    font-weight: bold;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    border: 2px solid #ff5b8a;
+    font-family: 'Itim', cursive;
+}
+
+.back-button:hover {
+    background: #ff5b8a;
+    transform: scale(1.08);
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #searchBar {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+.profile-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+
+.home-page {
+    background: url('/Main/images/backgroundmain.webp') no-repeat center center fixed;
+    background-size: cover;
+}
+
+
+.profile-page {
+    background: url('/Main/images/backgroundprofile.webp') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.floating-flower {
+    position: fixed;
+    font-size: 24px;
+    opacity: 1 !important; /* Đảm bảo luôn hiển thị */
+    pointer-events: none;
+    z-index: 9999 !important;
+    animation: floatWave 6s linear forwards, fadeOut 6s ease-out forwards;
+}
+
+/* 🌊 Animation uốn lượn */
+@keyframes floatWave {
+    0% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateX(var(--wave-amplitude, 50px)) translateY(25vh) rotate(45deg);
+    }
+    50% {
+        transform: translateX(calc(-1 * var(--wave-amplitude, 50px))) translateY(50vh) rotate(90deg);
+    }
+    75% {
+        transform: translateX(var(--wave-amplitude, 50px)) translateY(75vh) rotate(135deg);
+    }
+    100% {
+        transform: translateX(0) translateY(100vh) rotate(180deg);
+    }
+}
+
+/* 🌫️ Hiệu ứng mờ dần */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    70% {
+        opacity: 1; /* Giữ nguyên lâu hơn */
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+/* 🎀 Loading Screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffdde1, #ffc1cc);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out;
+}
+
+/* 🌸 Loading Emoji */
+.loading-emoji {
+    font-size: 40px;
+    animation: shake 0.6s infinite alternate ease-in-out;
+}
+
+/* 🌸 Shake Effect */
+@keyframes shake {
+    0% { transform: translateX(-5px); }
+    100% { transform: translateX(5px); }
+}
+
+/* 🔋 Loading Bar */
+.loading-bar-container {
+    width: 80%;
+    max-width: 300px;
+    height: 15px;
+    background: white;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: 2px solid #ff85a2;
+    overflow: hidden;
+    position: relative;
+}
+
+.loading-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #ff69b4, #ff1493);
+    border-radius: 10px;
+    transition: width 0.3s ease-out;
+}
+
+/* 🎭 Loading Text */
+.loading-text {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #ff4081;
+    font-weight: bold;
+    font-family: 'Itim', cursive;
+}
+
+/* 🔮 Nút "?" - Cố định góc trái trên màn hình */
+.morse-button {
+    position: fixed;
+    top: 15px; /* Cách trên 15px */
+    left: 15px; /* Cách trái 15px */
+    background: black;
+    color: #ff69b4;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #ff69b4;
+    padding: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    width: 30px; /* Kích thước nút */
+    height: 30px;
+    text-align: center;
+    display: flex;
+    align-items: center; /* Canh giữa theo chiều dọc */
+    justify-content: center; /* Canh giữa theo chiều ngang */
+    z-index: 1000;
+}
+
+/* 🌟 Hover hiệu ứng phát sáng */
+.morse-button:hover {
+    background: #ff69b4;
+    color: black;
+    box-shadow: 0 0 10px #ff69b4;
+}
+}
+
 /* 📜 Panel Morse Code (Ẩn mặc định, luôn ở giữa) */
 .morse-panel {
-    display: none;
+    display: none; /* Đảm bảo ẩn ban đầu */
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 50px; /* Cách trên một chút */
+    left: 50%; /* Đặt ở giữa */
+    transform: translate(-50%, 0); /* Giữ chính giữa */
     width: 220px;
     padding: 10px;
     background: rgba(0, 0, 0, 0.9);
@@ -412,15 +808,47 @@ body {
     font-size: 16px;
     box-shadow: 0 3px 10px rgba(255, 105, 180, 0.5);
     z-index: 999;
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.8);
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-/* Khi panel hiện lên */
-.morse-panel.show {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+
+
+
+.floating-flower,
+.morse-panel,
+.morse-button,
+.card {
+    will-change: transform, opacity;
+    transform: translateZ(0); /* Bật GPU tăng tốc */
+}
+
+.card {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Giảm blur */
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+#flowerCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* Không ảnh hưởng UI */
+    z-index: 0; /* Đảm bảo nằm phía sau */
+}
+
+/* 🔥 Loại bỏ hiệu ứng chọn xanh trên mobile */
+a, button {
+    -webkit-tap-highlight-color: transparent; /* Xóa màu xanh khi nhấn */
+    outline: none; /* Không có viền xanh */
+    user-select: none; /* Không cho phép chọn nội dung */
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+/* 🔥 Đảm bảo không có viền khi nhấn */
+a:focus, button:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .floating-flower,
