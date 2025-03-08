@@ -17,29 +17,60 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-function removeAccents(str) {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Bỏ dấu tiếng Việt
-}
+document.addEventListener("DOMContentLoaded", function () {
+    let searchBar = document.getElementById("searchBar");
 
-function searchCards() {
-    let input = document.getElementById("searchBar").value.toLowerCase();
-    let cards = document.querySelectorAll(".card");
+    if (!searchBar) {
+        console.error("Lỗi: Không tìm thấy #searchBar");
+        return;
+    }
 
-    cards.forEach(card => {
-        let nameElement = card.querySelector("h2");
-        if (!nameElement) return; // Bỏ qua nếu không tìm thấy tên
+    function removeAccents(str) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
 
-        let name = nameElement.innerText.toLowerCase();
-        let nameNoAccents = removeAccents(name); // Tên không dấu
-        let inputNoAccents = removeAccents(input); // Tìm kiếm không dấu
-
-        if (nameNoAccents.includes(inputNoAccents)) {
-            card.style.display = "block";
+    function decodeBase64(encoded) {
+        if (typeof atob !== "undefined") {
+            return atob(encoded);
         } else {
-            card.style.display = "none";
+            console.error("Lỗi: Trình duyệt không hỗ trợ atob()");
+            return "";
+        }
+    }
+
+    function searchCards(input) {
+        let inputNoAccents = removeAccents(input);
+        let cards = document.querySelectorAll(".card");
+
+        cards.forEach(card => {
+            let nameElement = card.querySelector("h2");
+            if (!nameElement) return;
+
+            let name = nameElement.innerText.toLowerCase();
+            let nameNoAccents = removeAccents(name);
+
+            card.style.display = nameNoAccents.includes(inputNoAccents) ? "block" : "none";
+        });
+    }
+
+    searchBar.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            let input = this.value.toLowerCase().trim();
+
+            if (input === "8/3") {
+                let encodedLink = "aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXd4dzlXZ1hjUSZwcD15Z1VYbmV2ZXIrZ29ubmErZ2l2ZSt5b3UrdXAlM0Q=";
+                window.location.href = decodeBase64(encodedLink);
+                return;
+            }
+
+            searchCards(input);
+            this.value = input;
+            this.blur();
         }
     });
-}
+});
+
 
 document.addEventListener("DOMContentLoaded", function () {
     let grid = document.getElementById("memberGrid");
