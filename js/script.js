@@ -58,7 +58,7 @@ document.getElementById("searchBar").addEventListener("keypress", function (even
 
         // 🎁 Secret mode: Nếu nhập "8/3" thì chuyển đến YouTube
         if (input === "8/3") {
-            let encodedLink = "aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXd3dzlXZ1hjUw==";
+            let encodedLink = "aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXd4dzlXZ1hjUSZwcD15Z1VYbmV2ZXIrZ29ubmErZ2l2ZSt5b3UrdXAlM0Q=";
             window.location.href = decodeBase64(encodedLink);
             return;
         }
@@ -219,26 +219,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const morsePanel = document.querySelector(".morse-panel");
 
     if (morseButton && morsePanel) {
-        morsePanel.style.display = "none"; // Đảm bảo ẩn ban đầu
+        morsePanel.style.display = "none";
 
         morseButton.addEventListener("click", function () {
-            if (morsePanel.classList.contains("show")) {
-                morsePanel.classList.remove("show");
-                setTimeout(() => {
-                    morsePanel.style.display = "none"; // Ẩn sau khi animation kết thúc
-                }, 300); // Khớp với CSS transition
+            if (morsePanel.style.display === "block") {
+                morsePanel.style.display = "none";
             } else {
                 morsePanel.style.display = "block";
-                setTimeout(() => {
-                    morsePanel.classList.add("show");
-                }, 10); // Delay nhỏ để đảm bảo transition hoạt động
 
-                // Tự động ẩn sau 5 giây
                 setTimeout(() => {
-                    morsePanel.classList.remove("show");
-                    setTimeout(() => {
-                        morsePanel.style.display = "none";
-                    }, 300);
+                    morsePanel.style.display = "none";
                 }, 5000);
             }
         });
@@ -246,7 +236,6 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Không tìm thấy nút hoặc panel!");
     }
 });
-
 
 // 🔥 TẠI ĐÂY FIX HOA RƠI KHÔNG BỊ MẤT 🔥
 document.addEventListener("visibilitychange", function () {
