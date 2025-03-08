@@ -55,67 +55,81 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
     if (!document.querySelector(".profile-container")) return; // Chỉ chạy trên trang cá nhân
 
-    let flowerCount = 0;
+    const canvas = document.createElement("canvas");
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let flowers = [];
     const maxFlowers = 20;
-    let isTabHidden = false;
-
+    let flowerAnimationFrame;
+    
     function createFlower() {
-        if (flowerCount >= maxFlowers) return;
+        if (flowers.length >= maxFlowers) return;
 
-        for (let i = 0; i < 2; i++) { // 🔥 Tạo 2 hoa mỗi lần
-            if (flowerCount >= maxFlowers) return;
+        let x = Math.random() * canvas.width;
+        let y = -20;
+        let size = Math.random() * 30 + 20;
+        let speed = Math.random() * 2 + 1;
+        let waveAmplitude = Math.random() * 50 + 30;
+        let opacity = Math.random() * 0.8 + 0.2;
 
-            const flower = document.createElement("div");
-            flower.classList.add("floating-flower");
-            flower.innerHTML = "🌸";
+        flowers.push({ x, y, size, speed, waveAmplitude, opacity, time: 0 });
+    }
 
-            let xPos = Math.random() * window.innerWidth;
-            let yPos = -10; // Bắt đầu từ trên màn hình
-            let waveAmplitude = Math.random() * 60 + 30; // Độ rộng uốn lượn (random)
-            let waveSpeed = Math.random() * 2 + 1; // Tốc độ uốn lượn (random)
-            let fallDuration = Math.random() * 3 + 5; // Tốc độ rơi (random từ 5s đến 8s)
+    function animateFlowers() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            console.log(`🌸 Tạo hoa tại: ${xPos}px, ${yPos}px`);
+        for (let i = 0; i < flowers.length; i++) {
+            let f = flowers[i];
 
-            flower.style.left = `${xPos}px`;
-            flower.style.top = `${yPos}px`;
-            flower.style.position = "fixed";
-            flower.style.fontSize = `${Math.random() * 10 + 20}px`; // Ngẫu nhiên kích thước hoa
-            flower.style.opacity = "1"; /* Giữ nguyên khi bắt đầu */
-            flower.style.pointerEvents = "none"; 
-            flower.style.zIndex = "9999"; 
-            flower.style.animation = `floatWave ${fallDuration}s linear forwards, fadeOut ${fallDuration}s ease-out forwards`;
-            flower.style.setProperty("--wave-amplitude", `${waveAmplitude}px`);
-            flower.style.setProperty("--wave-speed", `${waveSpeed}s`);
+            f.y += f.speed;
+            f.x += Math.sin(f.y / 50) * f.waveAmplitude * 0.02; // Uốn lượn
 
-            document.body.appendChild(flower);
-            flowerCount++;
+            ctx.globalAlpha = f.opacity;
+            ctx.font = `${f.size}px serif`;
+            ctx.fillText("🌸", f.x, f.y);
 
-            setTimeout(() => {
-                flower.remove();
-                flowerCount--;
-            }, fallDuration * 1000);
+            if (f.y > canvas.height) {
+                flowers.splice(i, 1);
+                i--;
+            }
+        }
+
+        flowerAnimationFrame = requestAnimationFrame(animateFlowers);
+    }
+
+    function startFlowerAnimation() {
+        if (!flowerAnimationFrame) {
+            flowerAnimationFrame = requestAnimationFrame(animateFlowers);
         }
     }
 
-    let flowerInterval = setInterval(createFlower, 1500);
-    setTimeout(createFlower, 500);
+    function stopFlowerAnimation() {
+        cancelAnimationFrame(flowerAnimationFrame);
+        flowerAnimationFrame = null;
+    }
 
-    // 🔥 Dừng hiệu ứng khi thoát tab & tiếp tục khi quay lại
+    let flowerInterval = setInterval(createFlower, 1000);
+    startFlowerAnimation();
+
+    // 📌 Dừng hiệu ứng khi chuyển tab
     document.addEventListener("visibilitychange", function () {
         if (document.hidden) {
-            console.log("Tab bị ẩn - Dừng hoa rơi...");
-            isTabHidden = true;
-            document.querySelectorAll(".floating-flower").forEach(flower => {
-                flower.style.animationPlayState = "paused"; // Tạm dừng animation
-            });
+            stopFlowerAnimation();
         } else {
-            console.log("Tab hiển thị lại - Tiếp tục hiệu ứng!");
-            isTabHidden = false;
-            document.querySelectorAll(".floating-flower").forEach(flower => {
-                flower.style.animationPlayState = "running"; // Tiếp tục animation
-            });
+            setTimeout(() => {
+                startFlowerAnimation();
+            }, 200);
         }
+    });
+
+    // 📌 Resize canvas khi thay đổi kích thước cửa sổ
+    window.addEventListener("resize", function () {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     });
 });
 
