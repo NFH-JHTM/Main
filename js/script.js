@@ -55,24 +55,30 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
     if (!document.querySelector(".profile-container")) return; // Chỉ chạy trên trang cá nhân
 
+    // 📌 Tạo canvas cho hoa rơi
     const canvas = document.createElement("canvas");
+    canvas.id = "flowerCanvas";
     document.body.appendChild(canvas);
     const ctx = canvas.getContext("2d");
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
 
     let flowers = [];
-    const maxFlowers = 20;
-    let flowerAnimationFrame;
-    
+    const maxFlowers = 15; // 🔥 Giới hạn hoa trên màn hình
+    let isTabHidden = false;
+
     function createFlower() {
-        if (flowers.length >= maxFlowers) return;
+        if (flowers.length >= maxFlowers || isTabHidden) return; // Không spawn thêm nếu đủ số lượng hoặc tab ẩn
 
         let x = Math.random() * canvas.width;
         let y = -20;
         let size = Math.random() * 30 + 20;
-        let speed = Math.random() * 2 + 1;
+        let speed = Math.random() * 2 + 1; // 🔥 Giữ tốc độ rơi bình thường
         let waveAmplitude = Math.random() * 50 + 30;
         let opacity = Math.random() * 0.8 + 0.2;
 
@@ -86,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let f = flowers[i];
 
             f.y += f.speed;
-            f.x += Math.sin(f.y / 50) * f.waveAmplitude * 0.02; // Uốn lượn
+            f.x += Math.sin(f.y / 50) * f.waveAmplitude * 0.02;
 
             ctx.globalAlpha = f.opacity;
             ctx.font = `${f.size}px serif`;
@@ -98,38 +104,25 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-        flowerAnimationFrame = requestAnimationFrame(animateFlowers);
-    }
-
-    function startFlowerAnimation() {
-        if (!flowerAnimationFrame) {
-            flowerAnimationFrame = requestAnimationFrame(animateFlowers);
-        }
-    }
-
-    function stopFlowerAnimation() {
-        cancelAnimationFrame(flowerAnimationFrame);
-        flowerAnimationFrame = null;
+        requestAnimationFrame(animateFlowers);
     }
 
     let flowerInterval = setInterval(createFlower, 1000);
-    startFlowerAnimation();
+    animateFlowers();
 
-    // 📌 Dừng hiệu ứng khi chuyển tab
+    // 📌 Dừng spawn hoa khi chuyển tab & tiếp tục khi quay lại
     document.addEventListener("visibilitychange", function () {
         if (document.hidden) {
-            stopFlowerAnimation();
+            console.log("Tab bị ẩn - Dừng spawn hoa...");
+            isTabHidden = true;
+            clearInterval(flowerInterval);
         } else {
-            setTimeout(() => {
-                startFlowerAnimation();
-            }, 200);
+            console.log("Tab hiển thị lại - Tiếp tục spawn hoa!");
+            isTabHidden = false;
+            if (!flowerInterval) {
+                flowerInterval = setInterval(createFlower, 1000);
+            }
         }
-    });
-
-    // 📌 Resize canvas khi thay đổi kích thước cửa sổ
-    window.addEventListener("resize", function () {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
     });
 });
 
