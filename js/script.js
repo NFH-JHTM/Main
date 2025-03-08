@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("resize", resizeCanvas);
 
     let flowers = [];
-    const maxFlowers = 15;
+    const maxFlowers = 20;
     let isTabHidden = false;
     let flowerInterval = null;
     let animationFrame = null;
