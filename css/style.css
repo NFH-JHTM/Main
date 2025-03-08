@@ -363,7 +363,6 @@ body {
     font-family: 'Itim', cursive;
 }
 
-/* 🔮 Nút "?" - Cố định góc trái trên màn hình */
 .morse-panel {
     display: none; /* Đảm bảo ẩn ban đầu */
     position: fixed;
@@ -385,6 +384,11 @@ body {
     transition: opacity 0.3s ease-in-out;
 }
 
+/* Khi panel được hiển thị */
+.morse-panel.show {
+    opacity: 1;
+    display: block;
+}
 /* 🌟 Hover hiệu ứng phát sáng */
 .morse-button:hover {
     background: #ff69b4;
