@@ -52,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// 🌸 HIỆU ỨNG HOA RƠI FIXED 🌸
 document.addEventListener("DOMContentLoaded", function () {
     if (!document.querySelector(".profile-container")) return;
 
@@ -65,35 +64,33 @@ document.addEventListener("DOMContentLoaded", function () {
         const flower = document.createElement("div");
         flower.classList.add("floating-flower");
         flower.innerHTML = "🌸";
+
+        flower.style.position = "fixed";
         flower.style.left = Math.random() * window.innerWidth + "px";
-        flower.style.top = "0px";
+        flower.style.top = "-10px";
+        flower.style.fontSize = "24px";
+        flower.style.opacity = "1";
+        flower.style.transition = "transform 5s linear, opacity 5s ease-out";
 
         document.body.appendChild(flower);
         flowerCount++;
 
-        function animateFlower() {
-            let startTime = Date.now();
-            function frame() {
-                let elapsed = (Date.now() - startTime) / 1000;
-                let progress = elapsed / 5;
+        setTimeout(() => {
+            flower.style.transform = `translateY(${window.innerHeight}px)`;
+            flower.style.opacity = "0";
+        }, 100);
 
-                if (progress < 1) {
-                    flower.style.opacity = 1 - progress;
-                    flower.style.transform = `translateY(${progress * window.innerHeight}px)`;
-                    requestAnimationFrame(frame);
-                } else {
-                    flower.remove();
-                    flowerCount--;
-                }
-            }
-            requestAnimationFrame(frame);
-        }
-        animateFlower();
+        setTimeout(() => {
+            flower.remove();
+            flowerCount--;
+        }, 5000);
     }
 
-    // 🔥 Tạo hoa mỗi giây
+    // 🔥 Gọi hiệu ứng ngay khi vào trang cá nhân
+    createFlower();
     setInterval(createFlower, 1000);
 });
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const loadingScreen = document.querySelector(".loading-screen");
