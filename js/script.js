@@ -25,17 +25,9 @@ function decodeBase64(encoded) {
     return atob(encoded); // Giải mã Base64
 }
 
-function searchCards() {
-    let input = document.getElementById("searchBar").value.toLowerCase().trim();
+function searchCards(input) {
     let inputNoAccents = removeAccents(input); // Xử lý không dấu
     let cards = document.querySelectorAll(".card");
-
-    // 🎁 Secret mode: Nếu nhập "8/3" thì chuyển đến link YouTube (Mã hóa Base64)
-    if (input === "8/3") {
-        let encodedLink = "aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXd4dzlXZ1hjUSZwcD15Z1VYbmV2ZXIrZ29ubmErZ2l2ZSt5b3UrdXAlM0Q=";
-        window.location.href = decodeBase64(encodedLink);
-        return;
-    }
 
     cards.forEach(card => {
         let nameElement = card.querySelector("h2");
@@ -52,11 +44,22 @@ function searchCards() {
     });
 }
 
-// 🎯 Tự động xác nhận khi nhấn Enter
+// 🎯 Xử lý khi nhấn Enter
 document.getElementById("searchBar").addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
         event.preventDefault(); // Ngăn form submit mặc định
-        searchCards(); // Gọi hàm tìm kiếm
+
+        let input = this.value.toLowerCase().trim();
+
+        // 🎁 Secret mode: Nếu nhập "8/3" thì chuyển đến YouTube
+        if (input === "8/3") {
+            let encodedLink = "aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXd4dzlXZ1hjUSZwcD15Z1VYbmV2ZXIrZ29ubmErZ2l2ZSt5b3UrdXAlM0Q=";
+            window.location.href = decodeBase64(encodedLink);
+            return;
+        }
+
+        searchCards(input); // Gọi hàm tìm kiếm
+        this.blur(); // Ẩn con trỏ chuột khỏi ô nhập
     }
 });
 
