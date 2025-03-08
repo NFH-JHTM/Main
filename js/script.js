@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
     let flowerCount = 0;
-    const maxFlowers = 20; // Tăng giới hạn tổng số hoa để không mất hiệu ứng
+    const maxFlowers = 20; // Giới hạn hoa để tránh lag
 
     function createFlower() {
         if (flowerCount >= maxFlowers) return;
@@ -68,6 +68,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let xPos = Math.random() * window.innerWidth;
             let yPos = -10; // Bắt đầu từ trên màn hình
+            let waveAmplitude = Math.random() * 50 + 30; // Độ rộng uốn lượn
+            let waveSpeed = Math.random() * 2 + 1; // Tốc độ uốn lượn
 
             console.log(`🌸 Tạo hoa tại vị trí: ${xPos}px, ${yPos}px`);
 
@@ -78,7 +80,9 @@ document.addEventListener("DOMContentLoaded", function () {
             flower.style.opacity = "1"; /* Giữ nguyên khi bắt đầu */
             flower.style.pointerEvents = "none"; 
             flower.style.zIndex = "9999"; 
-            flower.style.animation = "floatDown 6s linear forwards";
+            flower.style.animation = `floatWave 6s linear forwards`;
+            flower.style.setProperty("--wave-amplitude", `${waveAmplitude}px`);
+            flower.style.setProperty("--wave-speed", `${waveSpeed}s`);
 
             document.body.appendChild(flower);
             flowerCount++;
@@ -93,6 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(createFlower, 1500);
     setTimeout(createFlower, 500);
 });
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
