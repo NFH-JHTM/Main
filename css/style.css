@@ -58,11 +58,11 @@ body {
     background: linear-gradient(135deg, #ffdde1, #ee9ca7);
     padding: 20px;
     border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     text-align: center;
     text-decoration: none;
     color: black;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
     position: relative;
     overflow: hidden;
     display: flex;
