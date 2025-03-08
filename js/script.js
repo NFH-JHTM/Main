@@ -99,6 +99,13 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.appendChild(canvas);
     const ctx = canvas.getContext("2d");
 
+    // 🌸 Fix lỗi z-index bằng cách set vị trí cố định
+    canvas.style.position = "fixed";
+    canvas.style.top = "0";
+    canvas.style.left = "0";
+    canvas.style.pointerEvents = "none"; // Không ảnh hưởng đến UI
+    canvas.style.zIndex = "1"; // Đảm bảo không che Morse Panel
+
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
