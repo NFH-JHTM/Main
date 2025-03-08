@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("resize", resizeCanvas);
 
     let flowers = [];
-    const maxFlowers = 15; // 🔥 Giới hạn hoa trên màn hình
+    const maxFlowers = 15; // 🔥 Giới hạn số hoa
     let isTabHidden = false;
 
     function createFlower() {
@@ -77,12 +77,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let x = Math.random() * canvas.width;
         let y = -20;
-        let size = Math.random() * 30 + 20;
+        let size = Math.random() * 25 + 15; // 🔥 Giới hạn kích thước hoa từ 15px - 40px
         let speed = Math.random() * 2 + 1; // 🔥 Giữ tốc độ rơi bình thường
         let waveAmplitude = Math.random() * 50 + 30;
-        let opacity = Math.random() * 0.8 + 0.2;
+        let opacity = 1; // 🔥 Luôn bắt đầu với độ trong suốt 100%
+        let life = 0; // 🔥 Biến theo dõi thời gian sống của hoa
 
-        flowers.push({ x, y, size, speed, waveAmplitude, opacity, time: 0 });
+        flowers.push({ x, y, size, speed, waveAmplitude, opacity, life });
     }
 
     function animateFlowers() {
@@ -93,6 +94,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             f.y += f.speed;
             f.x += Math.sin(f.y / 50) * f.waveAmplitude * 0.02;
+            f.life += 1; // 🔥 Tăng thời gian sống của hoa
+
+            // 🔥 Mờ dần khi gần chạm đất (Hoa sẽ biến mất ở 80% màn hình)
+            if (f.y > canvas.height * 0.6) {
+                f.opacity = 1 - ((f.y - canvas.height * 0.6) / (canvas.height * 0.4));
+            }
 
             ctx.globalAlpha = f.opacity;
             ctx.font = `${f.size}px serif`;
