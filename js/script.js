@@ -44,6 +44,11 @@ function searchCards(input) {
     });
 }
 
+// 🎯 Xử lý tìm kiếm theo thời gian thực
+document.getElementById("searchBar").addEventListener("input", function () {
+    searchCards(this.value.toLowerCase().trim()); // Tìm kiếm ngay khi nhập
+});
+
 // 🎯 Xử lý khi nhấn Enter
 document.getElementById("searchBar").addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
