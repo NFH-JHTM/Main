@@ -78,12 +78,13 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("resize", resizeCanvas);
 
     let flowers = [];
-    const maxFlowers = 15; // 🔥 Giới hạn số hoa
+    const maxFlowers = 15;
     let isTabHidden = false;
     let flowerInterval = null;
+    let animationFrame = null;
 
     function createFlower() {
-        if (flowers.length >= maxFlowers || isTabHidden) return; // Không spawn nếu tab ẩn hoặc đủ số lượng
+        if (flowers.length >= maxFlowers || isTabHidden) return;
 
         let x = Math.random() * canvas.width;
         let y = -20;
@@ -97,6 +98,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function animateFlowers() {
+        if (isTabHidden) return; // 🔥 Nếu tab bị ẩn, không vẽ lại để tránh lỗi tốc độ
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         for (let i = 0; i < flowers.length; i++) {
@@ -120,52 +123,34 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-        requestAnimationFrame(animateFlowers);
+        animationFrame = requestAnimationFrame(animateFlowers);
     }
 
     function startFlowerEffect() {
         clearInterval(flowerInterval);
+        cancelAnimationFrame(animationFrame);
+
+        isTabHidden = false;
         flowerInterval = setInterval(createFlower, 1000);
-        requestAnimationFrame(animateFlowers);
+        animationFrame = requestAnimationFrame(animateFlowers);
     }
 
     function stopFlowerEffect() {
         clearInterval(flowerInterval);
+        cancelAnimationFrame(animationFrame);
+        isTabHidden = true;
     }
 
     startFlowerEffect();
 
-    // 📌 Dừng hiệu ứng khi chuyển tab & tiếp tục khi quay lại
+    // 📌 Khi chuyển tab, dừng hiệu ứng hoàn toàn
     document.addEventListener("visibilitychange", function () {
         if (document.hidden) {
             console.log("Tab bị ẩn - Dừng hoa rơi...");
-            isTabHidden = true;
             stopFlowerEffect();
         } else {
             console.log("Tab hiển thị lại - Tiếp tục hoa rơi!");
-            isTabHidden = false;
             startFlowerEffect();
-        }
-    });
-
-    function pauseAnimations() {
-        flowers.forEach(flower => (flower.opacity = 0)); // Ẩn hoa thay vì xóa
-        let loadingBar = document.querySelector(".loading-bar");
-        if (loadingBar) loadingBar.style.animationPlayState = "paused";
-    }
-
-    function resumeAnimations() {
-        flowers.forEach(flower => (flower.opacity = 1)); // Hiện hoa lại
-        let loadingBar = document.querySelector(".loading-bar");
-        if (loadingBar) loadingBar.style.animationPlayState = "running";
-        startFlowerEffect();
-    }
-
-    document.addEventListener("visibilitychange", function () {
-        if (document.hidden) {
-            pauseAnimations();
-        } else {
-            resumeAnimations();
         }
     });
 });
