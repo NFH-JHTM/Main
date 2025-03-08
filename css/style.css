@@ -277,16 +277,16 @@ body {
         transform: translateX(0) translateY(0) rotate(0deg);
     }
     25% {
-        transform: translateX(var(--wave-amplitude, 50px)) translateY(25vh) rotate(90deg);
+        transform: translateX(var(--wave-amplitude, 50px)) translateY(25vh) rotate(45deg);
     }
     50% {
-        transform: translateX(calc(-1 * var(--wave-amplitude, 50px))) translateY(50vh) rotate(180deg);
+        transform: translateX(calc(-1 * var(--wave-amplitude, 50px))) translateY(50vh) rotate(90deg);
     }
     75% {
-        transform: translateX(var(--wave-amplitude, 50px)) translateY(75vh) rotate(270deg);
+        transform: translateX(var(--wave-amplitude, 50px)) translateY(75vh) rotate(135deg);
     }
     100% {
-        transform: translateX(0) translateY(100vh) rotate(360deg);
+        transform: translateX(0) translateY(100vh) rotate(180deg);
     }
 }
 
@@ -295,7 +295,7 @@ body {
     0% {
         opacity: 1;
     }
-    80% {
+    70% {
         opacity: 1; /* Giữ nguyên lâu hơn */
     }
     100% {
