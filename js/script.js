@@ -58,7 +58,7 @@ document.getElementById("searchBar").addEventListener("keypress", function (even
 
         // 🎁 Secret mode: Nếu nhập "8/3" thì chuyển đến YouTube
         if (input === "8/3") {
-            let encodedLink = "aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXd4dzlXZ1hjUSZwcD15Z1VYbmV2ZXIrZ29ubmErZ2l2ZSt5b3UrdXAlM0Q=";
+            let encodedLink = "aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXd3dzlXZ1hjUw==";
             window.location.href = decodeBase64(encodedLink);
             return;
         }
