@@ -53,8 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (!document.querySelector(".profile-container")) return;
-
     let flowerCount = 0;
     const maxFlowers = 15;
 
@@ -65,20 +63,22 @@ document.addEventListener("DOMContentLoaded", function () {
         flower.classList.add("floating-flower");
         flower.innerHTML = "🌸";
 
+        let xPos = Math.random() * window.innerWidth;
+        let yPos = -10; // Bắt đầu từ trên màn hình
+
+        console.log(`🌸 Tạo hoa tại vị trí: ${xPos}px, ${yPos}px`);
+
+        flower.style.left = `${xPos}px`;
+        flower.style.top = `${yPos}px`;
         flower.style.position = "fixed";
-        flower.style.left = Math.random() * window.innerWidth + "px";
-        flower.style.top = "-10px";
         flower.style.fontSize = "24px";
-        flower.style.opacity = "1";
-        flower.style.transition = "transform 6s linear, opacity 6s ease-out";
+        flower.style.opacity = "1"; /* Giữ nguyên khi bắt đầu */
+        flower.style.pointerEvents = "none"; 
+        flower.style.zIndex = "9999"; 
+        flower.style.animation = "floatDown 6s linear forwards";
 
         document.body.appendChild(flower);
         flowerCount++;
-
-        setTimeout(() => {
-            flower.style.transform = `translateY(${window.innerHeight}px)`;
-            flower.style.opacity = "0";
-        }, 100);
 
         setTimeout(() => {
             flower.remove();
@@ -86,32 +86,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 6000);
     }
 
-    // 🚀 Chắc chắn gọi hoa ngay khi DOM load xong
-    setTimeout(createFlower, 500);
     setInterval(createFlower, 1500);
+    setTimeout(createFlower, 500);
 });
-
-// 📌 Nếu tab bị ẩn rồi hiện lại -> Gọi lại hoa rơi
-document.addEventListener("visibilitychange", function () {
-    if (!document.querySelector(".profile-container")) return;
-    
-    if (!document.hidden) {
-        console.log("Tab hiển thị lại - Tiếp tục hiệu ứng hoa rơi!");
-        setTimeout(createFlower, 500);
-    }
-});
-
-// 🎨 Style CSS để chắc chắn hoa hiển thị đẹp
-const style = document.createElement("style");
-style.innerHTML = `
-    .floating-flower {
-        position: fixed;
-        color: pink;
-        user-select: none;
-        pointer-events: none;
-    }
-`;
-document.head.appendChild(style);
 
 document.addEventListener("DOMContentLoaded", function () {
     const loadingScreen = document.querySelector(".loading-screen");
