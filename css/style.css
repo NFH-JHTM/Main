@@ -414,20 +414,6 @@ body {
     z-index: 999;
 }
 
-/* 📱 Fix Morse Code nằm giữa trên mobile */
-@media (max-width: 768px) {
-    .morse-panel {
-        width: 90%; /* Tăng kích thước để nó không quá nhỏ */
-        max-width: 300px; /* Giới hạn chiều rộng tối đa */
-        position: absolute; /* Đặt vị trí tuyệt đối để căn giữa */
-        left: 50%; /* Đưa điểm giữa của panel ra giữa màn hình */
-        transform: translateX(-50%); /* Căn giữa chính xác */
-        bottom: 20px; /* Đặt nó gần cuối trang */
-        text-align: center; /* Chữ nằm giữa */
-        padding: 10px;
-    }
-}
-
 
 
 
