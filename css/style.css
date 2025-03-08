@@ -404,15 +404,16 @@ body {
     }
 }
 
-/* Fix hiệu ứng mượt hơn */
 .floating-flower,
 .morse-panel,
-.morse-button {
-    will-change: transform, opacity; /* Giúp Chrome/Edge tối ưu trước */
+.morse-button,
+.card {
+    will-change: transform, opacity;
+    transform: translateZ(0); /* Bật GPU tăng tốc */
 }
 
-* {
-    transform: translateZ(0); /* Kích hoạt GPU */
-    backface-visibility: hidden; /* Tránh lỗi render */
+.card {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Giảm blur */
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 
