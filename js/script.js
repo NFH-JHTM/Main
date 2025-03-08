@@ -66,10 +66,10 @@ document.getElementById("searchBar").addEventListener("keypress", function (even
     }
 });
 
-// 🌸 Hiệu ứng hoa rơi
 document.addEventListener("DOMContentLoaded", function () {
     if (!document.querySelector(".profile-container")) return;
 
+    // 🌸 Tạo canvas
     const canvas = document.createElement("canvas");
     canvas.id = "flowerCanvas";
     document.body.appendChild(canvas);
@@ -89,74 +89,35 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("resize", resizeCanvas);
 
     let flowers = [];
-    const maxFlowers = 15;
-    let isTabHidden = false;
-    let flowerInterval = null;
-
     function createFlower() {
-        if (flowers.length >= maxFlowers || isTabHidden) return;
-
         let x = Math.random() * canvas.width;
         let y = -20;
         let size = Math.random() * 20 + 10;
         let speed = Math.random() * 2 + 1;
         let waveAmplitude = Math.random() * 50 + 30;
-        let opacity = 1;
-        let life = 0;
 
-        flowers.push({ x, y, size, speed, waveAmplitude, opacity, life });
+        flowers.push({ x, y, size, speed, waveAmplitude });
     }
 
     function animateFlowers() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        for (let i = 0; i < flowers.length; i++) {
-            let f = flowers[i];
-
+        flowers.forEach((f, i) => {
             f.y += f.speed;
             f.x += Math.sin(f.y / 50) * f.waveAmplitude * 0.02;
-            f.life += 1;
 
-            if (f.y > canvas.height * 0.6) {
-                f.opacity = 1 - ((f.y - canvas.height * 0.6) / (canvas.height * 0.4));
-            }
-
-            ctx.globalAlpha = f.opacity;
+            ctx.globalAlpha = 1;
             ctx.font = `${f.size}px serif`;
             ctx.fillText("🌸", f.x, f.y);
 
-            if (f.y > canvas.height) {
-                flowers.splice(i, 1);
-                i--;
-            }
-        }
+            if (f.y > canvas.height) flowers.splice(i, 1);
+        });
 
         requestAnimationFrame(animateFlowers);
     }
 
-    function startFlowerAnimation() {
-        if (!flowerInterval) {
-            flowerInterval = setInterval(createFlower, 1000);
-        }
-        requestAnimationFrame(animateFlowers);
-    }
-
-    function stopFlowerAnimation() {
-        clearInterval(flowerInterval);
-        flowerInterval = null;
-    }
-
-    startFlowerAnimation();
-
-    document.addEventListener("visibilitychange", function () {
-        if (document.hidden) {
-            isTabHidden = true;
-            stopFlowerAnimation();
-        } else {
-            isTabHidden = false;
-            startFlowerAnimation();
-        }
-    });
+    setInterval(createFlower, 1000);
+    animateFlowers();
 });
 
 document.addEventListener("DOMContentLoaded", function () {
