@@ -17,16 +17,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+// 🎯 Xử lý tìm kiếm
 function removeAccents(str) {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Bỏ dấu tiếng Việt
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
 function decodeBase64(encoded) {
-    return atob(encoded); // Giải mã Base64
+    return atob(encoded);
 }
 
 function searchCards(input) {
-    let inputNoAccents = removeAccents(input); // Xử lý không dấu
+    let inputNoAccents = removeAccents(input);
     let cards = document.querySelectorAll(".card");
 
     cards.forEach(card => {
@@ -34,7 +35,7 @@ function searchCards(input) {
         if (!nameElement) return;
 
         let name = nameElement.innerText.toLowerCase();
-        let nameNoAccents = removeAccents(name); // Tên không dấu
+        let nameNoAccents = removeAccents(name);
 
         if (nameNoAccents.includes(inputNoAccents)) {
             card.style.display = "block";
@@ -44,67 +45,41 @@ function searchCards(input) {
     });
 }
 
-// 🎯 Xử lý tìm kiếm theo thời gian thực
 document.getElementById("searchBar").addEventListener("input", function () {
-    searchCards(this.value.toLowerCase().trim()); // Tìm kiếm ngay khi nhập
+    searchCards(this.value.toLowerCase().trim());
 });
 
-// 🎯 Xử lý khi nhấn Enter
 document.getElementById("searchBar").addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
-        event.preventDefault(); // Ngăn form submit mặc định
-
+        event.preventDefault();
         let input = this.value.toLowerCase().trim();
 
-        // 🎁 Secret mode: Nếu nhập "8/3" thì chuyển đến YouTube
         if (input === "8/3") {
             let encodedLink = "aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXd3dzlXZ1hjUw==";
             window.location.href = decodeBase64(encodedLink);
             return;
         }
 
-        searchCards(input); // Gọi hàm tìm kiếm
-        this.value = input; // Cập nhật lại giá trị vào ô tìm kiếm
-        this.blur(); // Ẩn con trỏ chuột khỏi ô nhập
+        searchCards(input);
+        this.value = input;
+        this.blur();
     }
 });
 
-
+// 🌸 Hiệu ứng hoa rơi
 document.addEventListener("DOMContentLoaded", function () {
-    let grid = document.getElementById("memberGrid");
+    if (!document.querySelector(".profile-container")) return;
 
-    grid.addEventListener("mouseover", function (event) {
-        if (event.target.closest(".card")) {
-            let card = event.target.closest(".card");
-            card.style.transform = "translateY(-5px)";
-            card.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.2)";
-        }
-    });
-
-    grid.addEventListener("mouseout", function (event) {
-        if (event.target.closest(".card")) {
-            let card = event.target.closest(".card");
-            card.style.transform = "translateY(0)";
-            card.style.boxShadow = "0 4px 10px rgba(0, 0, 0, 0.1)";
-        }
-    });
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    if (!document.querySelector(".profile-container")) return; // Chỉ chạy trên trang cá nhân
-
-    // 📌 Tạo canvas cho hoa rơi
     const canvas = document.createElement("canvas");
     canvas.id = "flowerCanvas";
     document.body.appendChild(canvas);
     const ctx = canvas.getContext("2d");
 
-    // 🌸 Fix lỗi z-index bằng cách set vị trí cố định
     canvas.style.position = "fixed";
     canvas.style.top = "0";
     canvas.style.left = "0";
-    canvas.style.pointerEvents = "none"; // Không ảnh hưởng đến UI
-    canvas.style.zIndex = "1"; // Đảm bảo không che Morse Panel
+    canvas.style.pointerEvents = "none";
+    canvas.style.zIndex = "1";
 
     function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -116,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let flowers = [];
     const maxFlowers = 15;
     let isTabHidden = false;
-    let flowerInterval;
+    let flowerInterval = null;
 
     function createFlower() {
         if (flowers.length >= maxFlowers || isTabHidden) return;
@@ -173,23 +148,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
     startFlowerAnimation();
 
-    // 📌 Dừng spawn hoa khi chuyển tab & tiếp tục khi quay lại
     document.addEventListener("visibilitychange", function () {
         if (document.hidden) {
-            console.log("Tab bị ẩn - Dừng spawn hoa...");
             isTabHidden = true;
             stopFlowerAnimation();
         } else {
-            console.log("Tab hiển thị lại - Tiếp tục spawn hoa!");
             isTabHidden = false;
             startFlowerAnimation();
         }
     });
 });
 
+// 🔥 Fix Morse Code không bị hiện lên khi load trang
+document.addEventListener("DOMContentLoaded", function () {
+    const morseButton = document.querySelector(".morse-button");
+    const morsePanel = document.querySelector(".morse-panel");
 
+    if (morseButton && morsePanel) {
+        morsePanel.style.display = "none";
 
+        morseButton.addEventListener("click", function () {
+            if (morsePanel.style.display === "block") {
+                morsePanel.style.display = "none";
+            } else {
+                morsePanel.style.display = "block";
 
+                setTimeout(() => {
+                    morsePanel.style.display = "none";
+                }, 5000);
+            }
+        });
+    } else {
+        console.error("Không tìm thấy nút hoặc panel!");
+    }
+});
+
+// 🔥 Fix hiệu ứng loading screen
 document.addEventListener("DOMContentLoaded", function () {
     const loadingScreen = document.querySelector(".loading-screen");
     const loadingBar = document.querySelector(".loading-bar");
@@ -229,54 +223,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(updateLoading, 500);
 });
-
-document.addEventListener("DOMContentLoaded", function () {
-    const morseButton = document.querySelector(".morse-button");
-    const morsePanel = document.querySelector(".morse-panel");
-
-    if (morseButton && morsePanel) {
-        morsePanel.style.display = "none"; // Đảm bảo ẩn khi load trang
-
-        morseButton.addEventListener("click", function () {
-            if (morsePanel.style.display === "block") {
-                morsePanel.style.display = "none";
-            } else {
-                morsePanel.style.display = "block";
-
-                setTimeout(() => {
-                    morsePanel.style.display = "none";
-                }, 5000);
-            }
-        });
-    } else {
-        console.error("Không tìm thấy nút hoặc panel!");
-    }
-});
-
-// 🔥 TẠI ĐÂY FIX HOA RƠI KHÔNG BỊ MẤT 🔥
-document.addEventListener("visibilitychange", function () {
-    if (document.hidden) {
-        console.log("Tab bị ẩn - Dừng hiệu ứng...");
-        pauseAnimations();
-    } else {
-        console.log("Tab hiển thị lại - Tiếp tục hiệu ứng!");
-        resumeAnimations();
-    }
-});
-
-function pauseAnimations() {
-    let flowers = document.querySelectorAll(".floating-flower");
-    flowers.forEach(flower => flower.remove());
-
-    let loadingBar = document.querySelector(".loading-bar");
-    if (loadingBar) loadingBar.style.animationPlayState = "paused";
-}
-
-function resumeAnimations() {
-    let loadingBar = document.querySelector(".loading-bar");
-    if (loadingBar) loadingBar.style.animationPlayState = "running";
-
-    if (document.querySelector(".profile-container")) {
-        setInterval(createFlower, 1000);
-    }
-}
