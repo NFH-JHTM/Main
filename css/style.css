@@ -437,3 +437,12 @@ body {
     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 
+#flowerCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* Không ảnh hưởng UI */
+    z-index: 0; /* Đảm bảo nằm phía sau */
+}
