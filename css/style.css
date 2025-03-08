@@ -411,3 +411,8 @@ body {
     will-change: transform, opacity; /* Giúp Chrome/Edge tối ưu trước */
 }
 
+* {
+    transform: translateZ(0); /* Kích hoạt GPU */
+    backface-visibility: hidden; /* Tránh lỗi render */
+}
+
