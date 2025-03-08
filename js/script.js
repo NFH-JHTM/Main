@@ -53,8 +53,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+    if (!document.querySelector(".profile-container")) return; // Chỉ chạy trên trang cá nhân
+
     let flowerCount = 0;
-    const maxFlowers = 20; // Giới hạn số hoa
+    const maxFlowers = 20;
     let isTabHidden = false;
 
     function createFlower() {
@@ -69,19 +71,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let xPos = Math.random() * window.innerWidth;
             let yPos = -10; // Bắt đầu từ trên màn hình
-            let waveAmplitude = Math.random() * 50 + 30; // Độ rộng uốn lượn
-            let waveSpeed = Math.random() * 2 + 1; // Tốc độ uốn lượn
+            let waveAmplitude = Math.random() * 60 + 30; // Độ rộng uốn lượn (random)
+            let waveSpeed = Math.random() * 2 + 1; // Tốc độ uốn lượn (random)
+            let fallDuration = Math.random() * 3 + 5; // Tốc độ rơi (random từ 5s đến 8s)
 
-            console.log(`🌸 Tạo hoa tại vị trí: ${xPos}px, ${yPos}px`);
+            console.log(`🌸 Tạo hoa tại: ${xPos}px, ${yPos}px`);
 
             flower.style.left = `${xPos}px`;
             flower.style.top = `${yPos}px`;
             flower.style.position = "fixed";
-            flower.style.fontSize = "24px";
+            flower.style.fontSize = `${Math.random() * 10 + 20}px`; // Ngẫu nhiên kích thước hoa
             flower.style.opacity = "1"; /* Giữ nguyên khi bắt đầu */
             flower.style.pointerEvents = "none"; 
             flower.style.zIndex = "9999"; 
-            flower.style.animation = `floatWave 6s linear forwards, fadeOut 6s ease-out forwards`;
+            flower.style.animation = `floatWave ${fallDuration}s linear forwards, fadeOut ${fallDuration}s ease-out forwards`;
             flower.style.setProperty("--wave-amplitude", `${waveAmplitude}px`);
             flower.style.setProperty("--wave-speed", `${waveSpeed}s`);
 
@@ -91,14 +94,14 @@ document.addEventListener("DOMContentLoaded", function () {
             setTimeout(() => {
                 flower.remove();
                 flowerCount--;
-            }, 6000);
+            }, fallDuration * 1000);
         }
     }
 
     let flowerInterval = setInterval(createFlower, 1500);
     setTimeout(createFlower, 500);
 
-    // 🔥 Xử lý khi thoát tab
+    // 🔥 Dừng hiệu ứng khi thoát tab & tiếp tục khi quay lại
     document.addEventListener("visibilitychange", function () {
         if (document.hidden) {
             console.log("Tab bị ẩn - Dừng hoa rơi...");
