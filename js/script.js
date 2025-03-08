@@ -55,46 +55,38 @@ document.addEventListener("DOMContentLoaded", function () {
     let flowerInterval;
 
     function createFlower() {
-        if (flowers.length >= maxFlowers) return; 
+    if (document.querySelectorAll(".floating-flower").length > 20) return; // Giới hạn số hoa
 
-        const flower = document.createElement("div");
-        flower.classList.add("floating-flower");
-        flower.innerHTML = "🌸";
+    const flower = document.createElement("div");
+    flower.classList.add("floating-flower");
+    flower.innerHTML = "🌸";
 
-        flower.style.left = Math.random() * window.innerWidth + "px";
-        flower.style.animationDuration = (Math.random() * 5 + 3) + "s"; 
-        flower.style.opacity = Math.random() * 0.8 + 0.2;
+    flower.style.left = Math.random() * window.innerWidth + "px";
+    flower.style.top = "0px";
+    flower.style.setProperty("--wave-x", Math.random() * 100 - 50 + "px");
 
-        document.body.appendChild(flower);
-        flowers.push(flower);
+    document.body.appendChild(flower);
 
-        setTimeout(() => {
-            flower.remove();
-            flowers = flowers.filter(f => f !== flower);
-        }, 8000); 
-    }
+    function animateFlower() {
+        let startTime = Date.now();
+        function frame() {
+            let elapsed = (Date.now() - startTime) / 1000; // Thời gian đã qua (giây)
+            let progress = elapsed / 5; // Animation dài 5 giây
 
-    function startFlowerEffect() {
-        if (!flowerInterval) {
-            flowerInterval = setInterval(createFlower, 1200);
+            if (progress < 1) {
+                flower.style.opacity = 1 - progress; // Mờ dần
+                flower.style.transform = `translateY(${progress * window.innerHeight}px)`;
+                requestAnimationFrame(frame);
+            } else {
+                flower.remove(); // Xóa khi hết animation
+            }
         }
+        requestAnimationFrame(frame);
     }
 
-    function stopFlowerEffect() {
-        clearInterval(flowerInterval);
-        flowerInterval = null;
-    }
+    animateFlower();
+}
 
-    document.addEventListener("visibilitychange", function () {
-        if (document.hidden) {
-            stopFlowerEffect();
-        } else {
-            startFlowerEffect();
-        }
-    });
-
-    startFlowerEffect();
-});
 
 
 document.addEventListener("DOMContentLoaded", function () {
