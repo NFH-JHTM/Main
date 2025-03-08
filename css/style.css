@@ -262,24 +262,32 @@ body {
     background-size: cover;
 }
 
-/* 🌸 Hoa rơi mượt */
 .floating-flower {
     position: fixed;
     font-size: 24px;
-    opacity: 0.8;
-    pointer-events: none; /* Không ảnh hưởng UI */
-    animation: floatDown linear forwards;
-    z-index: 10;
+    opacity: 1 !important; /* Đảm bảo luôn hiển thị */
+    pointer-events: none;
+    z-index: 9999 !important;
+    animation: floatWave 6s linear forwards;
 }
 
-/* 🎭 Animation hoa rơi */
-@keyframes floatDown {
+/* 🌊 Animation uốn lượn */
+@keyframes floatWave {
     0% {
-        transform: translateY(0) rotate(0deg);
+        transform: translateX(0) translateY(0) rotate(0deg);
         opacity: 1;
     }
+    25% {
+        transform: translateX(var(--wave-amplitude, 50px)) translateY(25vh) rotate(90deg);
+    }
+    50% {
+        transform: translateX(calc(-1 * var(--wave-amplitude, 50px))) translateY(50vh) rotate(180deg);
+    }
+    75% {
+        transform: translateX(var(--wave-amplitude, 50px)) translateY(75vh) rotate(270deg);
+    }
     100% {
-        transform: translateY(100vh) rotate(360deg);
+        transform: translateX(0) translateY(100vh) rotate(360deg);
         opacity: 0;
     }
 }
