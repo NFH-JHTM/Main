@@ -219,14 +219,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const morsePanel = document.querySelector(".morse-panel");
 
     if (morseButton && morsePanel) {
-        morsePanel.style.display = "none";
+        morsePanel.style.display = "none"; // Đảm bảo panel bị ẩn ban đầu
 
         morseButton.addEventListener("click", function () {
+            // Kiểm tra nếu panel đang mở, thì ẩn nó đi
             if (morsePanel.style.display === "block") {
                 morsePanel.style.display = "none";
             } else {
+                // Hiện panel
                 morsePanel.style.display = "block";
 
+                // Sau 5 giây tự động ẩn
                 setTimeout(() => {
                     morsePanel.style.display = "none";
                 }, 5000);
@@ -236,6 +239,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Không tìm thấy nút hoặc panel!");
     }
 });
+
 
 // 🔥 TẠI ĐÂY FIX HOA RƠI KHÔNG BỊ MẤT 🔥
 document.addEventListener("visibilitychange", function () {
