@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let i = 1; i <= 28; i++) {
         let card = document.createElement("a");
         card.href = `pages/person${i}.html`;
-
         card.classList.add("card");
 
         card.innerHTML = `
@@ -19,50 +18,57 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function searchCards() {
-    let input = document.getElementById("searchBar").value.toLowerCase();
+    let input = document.getElementById("searchBar").value.toLowerCase().trim();
     let cards = document.querySelectorAll(".card");
+
+    if (!input) {
+        cards.forEach(card => card.style.display = "block");
+        return;
+    }
 
     cards.forEach(card => {
         let name = card.querySelector("h2")?.innerText.toLowerCase();
-        if (name && name.includes(input)) {
-            card.style.display = "block";
-        } else {
-            card.style.display = "none";
-        }
+        card.style.display = name && name.includes(input) ? "block" : "none";
     });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    let cards = document.querySelectorAll(".card");
+    let grid = document.getElementById("memberGrid");
 
-    cards.forEach(card => {
-        card.addEventListener("mouseenter", () => {
+    grid.addEventListener("mouseover", function (event) {
+        if (event.target.closest(".card")) {
+            let card = event.target.closest(".card");
             card.style.transform = "translateY(-5px)";
             card.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.2)";
-        });
+        }
+    });
 
-        card.addEventListener("mouseleave", () => {
+    grid.addEventListener("mouseout", function (event) {
+        if (event.target.closest(".card")) {
+            let card = event.target.closest(".card");
             card.style.transform = "translateY(0)";
             card.style.boxShadow = "0 4px 10px rgba(0, 0, 0, 0.1)";
-        });
+        }
     });
 });
 
 document.addEventListener("DOMContentLoaded", function () {
     if (!document.querySelector(".profile-container")) return;
 
+    const maxFlowers = 10;
+    let flowerCount = 0;
+
     function createFlower() {
-        if (document.querySelectorAll(".floating-flower").length > 20) return;
+        if (flowerCount >= maxFlowers) return;
 
         const flower = document.createElement("div");
         flower.classList.add("floating-flower");
         flower.innerHTML = "🌸";
-
         flower.style.left = Math.random() * window.innerWidth + "px";
         flower.style.top = "0px";
-        flower.style.setProperty("--wave-x", Math.random() * 100 - 50 + "px");
 
         document.body.appendChild(flower);
+        flowerCount++;
 
         function animateFlower() {
             let startTime = Date.now();
@@ -76,13 +82,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     requestAnimationFrame(frame);
                 } else {
                     flower.remove();
+                    flowerCount--;
                 }
             }
             requestAnimationFrame(frame);
         }
-
         animateFlower();
     }
+
+    setInterval(createFlower, 1000);
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -111,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
         loadingText.innerText = `Loading... ${Math.floor(progress)}%`;
 
         if (progress < 100) {
-            setTimeout(updateLoading, 300);
+            setTimeout(updateLoading, 500);
         } else {
             setTimeout(() => {
                 loadingScreen.style.opacity = "0";
