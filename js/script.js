@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let flowers = [];
     let flowerInterval;
 
-    function createFlower() {
+   function createFlower() {
     if (document.querySelectorAll(".floating-flower").length > 20) return; // Giới hạn số hoa
 
     const flower = document.createElement("div");
@@ -85,9 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     animateFlower();
-}
-
-
+} 
 
 document.addEventListener("DOMContentLoaded", function () {
     const loadingScreen = document.querySelector(".loading-screen");
