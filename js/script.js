@@ -52,11 +52,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// 🌸 HIỆU ỨNG HOA RƠI FIXED 🌸
 document.addEventListener("DOMContentLoaded", function () {
     if (!document.querySelector(".profile-container")) return;
 
-    const maxFlowers = 10;
     let flowerCount = 0;
+    const maxFlowers = 15;
 
     function createFlower() {
         if (flowerCount >= maxFlowers) return;
@@ -90,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
         animateFlower();
     }
 
+    // 🔥 Tạo hoa mỗi giây
     setInterval(createFlower, 1000);
 });
 
@@ -156,6 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+// 🔥 TẠI ĐÂY FIX HOA RƠI KHÔNG BỊ MẤT 🔥
 document.addEventListener("visibilitychange", function () {
     if (document.hidden) {
         console.log("Tab bị ẩn - Dừng hiệu ứng...");
@@ -179,6 +182,6 @@ function resumeAnimations() {
     if (loadingBar) loadingBar.style.animationPlayState = "running";
 
     if (document.querySelector(".profile-container")) {
-        setTimeout(createFlower, 500);
+        setInterval(createFlower, 1000);
     }
 }
