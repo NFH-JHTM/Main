@@ -22,8 +22,8 @@ function searchCards() {
     let cards = document.querySelectorAll(".card");
 
     cards.forEach(card => {
-        let name = card.querySelector("h2").innerText.toLowerCase();
-        if (name.includes(input)) {
+        let name = card.querySelector("h2")?.innerText.toLowerCase(); // Fix lỗi nếu thẻ h2 không tồn tại
+        if (name && name.includes(input)) {
             card.style.display = "block";
         } else {
             card.style.display = "none";
@@ -54,38 +54,39 @@ document.addEventListener("DOMContentLoaded", function () {
     let flowers = [];
     let flowerInterval;
 
-   function createFlower() {
-    if (document.querySelectorAll(".floating-flower").length > 20) return; // Giới hạn số hoa
+    function createFlower() {
+        if (document.querySelectorAll(".floating-flower").length > 20) return; // Giới hạn số hoa
 
-    const flower = document.createElement("div");
-    flower.classList.add("floating-flower");
-    flower.innerHTML = "🌸";
+        const flower = document.createElement("div");
+        flower.classList.add("floating-flower");
+        flower.innerHTML = "🌸";
 
-    flower.style.left = Math.random() * window.innerWidth + "px";
-    flower.style.top = "0px";
-    flower.style.setProperty("--wave-x", Math.random() * 100 - 50 + "px");
+        flower.style.left = Math.random() * window.innerWidth + "px";
+        flower.style.top = "0px";
+        flower.style.setProperty("--wave-x", Math.random() * 100 - 50 + "px");
 
-    document.body.appendChild(flower);
+        document.body.appendChild(flower);
 
-    function animateFlower() {
-        let startTime = Date.now();
-        function frame() {
-            let elapsed = (Date.now() - startTime) / 1000; // Thời gian đã qua (giây)
-            let progress = elapsed / 5; // Animation dài 5 giây
+        function animateFlower() {
+            let startTime = Date.now();
+            function frame() {
+                let elapsed = (Date.now() - startTime) / 1000; // Thời gian đã qua (giây)
+                let progress = elapsed / 5; // Animation dài 5 giây
 
-            if (progress < 1) {
-                flower.style.opacity = 1 - progress; // Mờ dần
-                flower.style.transform = `translateY(${progress * window.innerHeight}px)`;
-                requestAnimationFrame(frame);
-            } else {
-                flower.remove(); // Xóa khi hết animation
+                if (progress < 1) {
+                    flower.style.opacity = 1 - progress; // Mờ dần
+                    flower.style.transform = `translateY(${progress * window.innerHeight}px)`;
+                    requestAnimationFrame(frame);
+                } else {
+                    flower.remove(); // Xóa khi hết animation
+                }
             }
+            requestAnimationFrame(frame);
         }
-        requestAnimationFrame(frame);
-    }
 
-    animateFlower();
-} 
+        animateFlower();
+    }
+}); // <-- **Fix: Đóng đúng vị trí**
 
 document.addEventListener("DOMContentLoaded", function () {
     const loadingScreen = document.querySelector(".loading-screen");
@@ -128,8 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(updateLoading, 500); // Bắt đầu loading sau 0.5s để tránh lag
 });
 
-
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const morseButton = document.querySelector(".morse-button");
     const morsePanel = document.querySelector(".morse-panel");
 
