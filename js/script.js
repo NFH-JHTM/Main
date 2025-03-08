@@ -54,41 +54,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
     let flowerCount = 0;
-    const maxFlowers = 15;
+    const maxFlowers = 20; // Tăng giới hạn tổng số hoa để không mất hiệu ứng
 
     function createFlower() {
         if (flowerCount >= maxFlowers) return;
 
-        const flower = document.createElement("div");
-        flower.classList.add("floating-flower");
-        flower.innerHTML = "🌸";
+        for (let i = 0; i < 2; i++) { // 🔥 Tạo 2 hoa mỗi lần
+            if (flowerCount >= maxFlowers) return;
 
-        let xPos = Math.random() * window.innerWidth;
-        let yPos = -10; // Bắt đầu từ trên màn hình
+            const flower = document.createElement("div");
+            flower.classList.add("floating-flower");
+            flower.innerHTML = "🌸";
 
-        console.log(`🌸 Tạo hoa tại vị trí: ${xPos}px, ${yPos}px`);
+            let xPos = Math.random() * window.innerWidth;
+            let yPos = -10; // Bắt đầu từ trên màn hình
 
-        flower.style.left = `${xPos}px`;
-        flower.style.top = `${yPos}px`;
-        flower.style.position = "fixed";
-        flower.style.fontSize = "24px";
-        flower.style.opacity = "1"; /* Giữ nguyên khi bắt đầu */
-        flower.style.pointerEvents = "none"; 
-        flower.style.zIndex = "9999"; 
-        flower.style.animation = "floatDown 6s linear forwards";
+            console.log(`🌸 Tạo hoa tại vị trí: ${xPos}px, ${yPos}px`);
 
-        document.body.appendChild(flower);
-        flowerCount++;
+            flower.style.left = `${xPos}px`;
+            flower.style.top = `${yPos}px`;
+            flower.style.position = "fixed";
+            flower.style.fontSize = "24px";
+            flower.style.opacity = "1"; /* Giữ nguyên khi bắt đầu */
+            flower.style.pointerEvents = "none"; 
+            flower.style.zIndex = "9999"; 
+            flower.style.animation = "floatDown 6s linear forwards";
 
-        setTimeout(() => {
-            flower.remove();
-            flowerCount--;
-        }, 6000);
+            document.body.appendChild(flower);
+            flowerCount++;
+
+            setTimeout(() => {
+                flower.remove();
+                flowerCount--;
+            }, 6000);
+        }
     }
 
     setInterval(createFlower, 1500);
     setTimeout(createFlower, 500);
 });
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const loadingScreen = document.querySelector(".loading-screen");
