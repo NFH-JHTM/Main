@@ -6,13 +6,13 @@ document.querySelectorAll(".card").forEach(card => {
     canvas.height = card.clientHeight;
 
     let petals = [];
-    const maxPetals = 10; // 🔥 Giới hạn số hoa để tránh lag
+    const maxPetals = 10; // 🔥 Giới hạn số lượng hoa để tránh lag
     let animationFrame;
 
     class Petal {
         constructor() {
             this.x = Math.random() * canvas.width;
-            this.y = -10; // 🔥 Bắt đầu từ phía trên cùng của thẻ
+            this.y = Math.random() * canvas.height;
             this.size = Math.random() * 4 + 2;
             this.speedY = Math.random() * 0.8 + 0.2; // 🔥 Bay chậm hơn
             this.opacity = Math.random() * 0.5 + 0.5;
@@ -21,7 +21,7 @@ document.querySelectorAll(".card").forEach(card => {
         update() {
             this.y += this.speedY;
             if (this.y > canvas.height) {
-                this.y = -10; // 🔥 Reset lại ở trên cùng thay vì giữa
+                this.y = -10;
                 this.x = Math.random() * canvas.width;
             }
         }
