@@ -54,7 +54,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
     let flowerCount = 0;
-    const maxFlowers = 20; // Giới hạn hoa để tránh lag
+    const maxFlowers = 20; // Giới hạn số hoa
+    let isTabHidden = false;
 
     function createFlower() {
         if (flowerCount >= maxFlowers) return;
@@ -80,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
             flower.style.opacity = "1"; /* Giữ nguyên khi bắt đầu */
             flower.style.pointerEvents = "none"; 
             flower.style.zIndex = "9999"; 
-            flower.style.animation = `floatWave 6s linear forwards`;
+            flower.style.animation = `floatWave 6s linear forwards, fadeOut 6s ease-out forwards`;
             flower.style.setProperty("--wave-amplitude", `${waveAmplitude}px`);
             flower.style.setProperty("--wave-speed", `${waveSpeed}s`);
 
@@ -94,9 +95,27 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    setInterval(createFlower, 1500);
+    let flowerInterval = setInterval(createFlower, 1500);
     setTimeout(createFlower, 500);
+
+    // 🔥 Xử lý khi thoát tab
+    document.addEventListener("visibilitychange", function () {
+        if (document.hidden) {
+            console.log("Tab bị ẩn - Dừng hoa rơi...");
+            isTabHidden = true;
+            document.querySelectorAll(".floating-flower").forEach(flower => {
+                flower.style.animationPlayState = "paused"; // Tạm dừng animation
+            });
+        } else {
+            console.log("Tab hiển thị lại - Tiếp tục hiệu ứng!");
+            isTabHidden = false;
+            document.querySelectorAll(".floating-flower").forEach(flower => {
+                flower.style.animationPlayState = "running"; // Tiếp tục animation
+            });
+        }
+    });
 });
+
 
 
 
