@@ -446,3 +446,18 @@ body {
     pointer-events: none; /* Không ảnh hưởng UI */
     z-index: 0; /* Đảm bảo nằm phía sau */
 }
+
+/* 🔥 Loại bỏ hiệu ứng chọn xanh trên mobile */
+a, button {
+    -webkit-tap-highlight-color: transparent; /* Xóa màu xanh khi nhấn */
+    outline: none; /* Không có viền xanh */
+    user-select: none; /* Không cho phép chọn nội dung */
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+/* 🔥 Đảm bảo không có viền khi nhấn */
+a:focus, button:focus {
+    outline: none;
+    box-shadow: none;
+}
