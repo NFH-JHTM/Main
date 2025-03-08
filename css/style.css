@@ -396,11 +396,11 @@ body {
 
 /* 📜 Panel Morse Code (Ẩn mặc định, luôn ở giữa) */
 .morse-panel {
-    display: none; /* Đảm bảo ẩn ban đầu */
+    display: none;
     position: fixed;
-    top: 50px; /* Cách trên một chút */
-    left: 50%; /* Đặt ở giữa */
-    transform: translate(-50%, 0); /* Giữ chính giữa */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 220px;
     padding: 10px;
     background: rgba(0, 0, 0, 0.9);
@@ -412,6 +412,15 @@ body {
     font-size: 16px;
     box-shadow: 0 3px 10px rgba(255, 105, 180, 0.5);
     z-index: 999;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Khi panel hiện lên */
+.morse-panel.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .floating-flower,
