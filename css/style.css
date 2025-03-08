@@ -363,6 +363,37 @@ body {
     font-family: 'Itim', cursive;
 }
 
+/* 🔮 Nút "?" - Cố định góc trái trên màn hình */
+.morse-panel {
+    display: none; /* Đảm bảo ẩn ban đầu */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 220px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.9);
+    color: #ff69b4;
+    border: 2px solid #ff69b4;
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    box-shadow: 0 3px 10px rgba(255, 105, 180, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* 🌟 Hover hiệu ứng phát sáng */
+.morse-button:hover {
+    background: #ff69b4;
+    color: black;
+    box-shadow: 0 0 10px #ff69b4;
+}
+}
+
+/* 📜 Panel Morse Code (Ẩn mặc định, luôn ở giữa) */
 .morse-panel {
     display: none; /* Đảm bảo ẩn ban đầu */
     position: fixed;
@@ -389,33 +420,7 @@ body {
     opacity: 1;
     display: block;
 }
-/* 🌟 Hover hiệu ứng phát sáng */
-.morse-button:hover {
-    background: #ff69b4;
-    color: black;
-    box-shadow: 0 0 10px #ff69b4;
-}
-}
 
-/* 📜 Panel Morse Code (Ẩn mặc định, luôn ở giữa) */
-.morse-panel {
-    display: none; /* Đảm bảo ẩn ban đầu */
-    position: fixed;
-    top: 50px; /* Cách trên một chút */
-    left: 50%; /* Đặt ở giữa */
-    transform: translate(-50%, 0); /* Giữ chính giữa */
-    width: 220px;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.9);
-    color: #ff69b4;
-    border: 2px solid #ff69b4;
-    border-radius: 10px;
-    text-align: center;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 16px;
-    box-shadow: 0 3px 10px rgba(255, 105, 180, 0.5);
-    z-index: 999;
-}
 
 
 
