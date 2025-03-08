@@ -418,8 +418,8 @@ body {
 @media (max-width: 768px) {
     .morse-panel {
         width: 180px; /* Nhỏ hơn trên điện thoại */
-        right: 40%; /* Giữ ở giữa */
-        transform: translate(40%, 0); /* Đảm bảo không bị lệch */
+        right: 50%; /* Giữ ở giữa */
+        transform: translate(50%, 0); /* Đảm bảo không bị lệch */
         top: 60px; /* Hơi thấp xuống chút */
     }
 }
