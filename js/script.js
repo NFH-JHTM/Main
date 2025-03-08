@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
         flower.style.top = "-10px";
         flower.style.fontSize = "24px";
         flower.style.opacity = "1";
-        flower.style.transition = "transform 5s linear, opacity 5s ease-out";
+        flower.style.transition = "transform 6s linear, opacity 6s ease-out";
 
         document.body.appendChild(flower);
         flowerCount++;
@@ -83,14 +83,35 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => {
             flower.remove();
             flowerCount--;
-        }, 5000);
+        }, 6000);
     }
 
-    // 🔥 Gọi hiệu ứng ngay khi vào trang cá nhân
-    createFlower();
-    setInterval(createFlower, 1000);
+    // 🚀 Chắc chắn gọi hoa ngay khi DOM load xong
+    setTimeout(createFlower, 500);
+    setInterval(createFlower, 1500);
 });
 
+// 📌 Nếu tab bị ẩn rồi hiện lại -> Gọi lại hoa rơi
+document.addEventListener("visibilitychange", function () {
+    if (!document.querySelector(".profile-container")) return;
+    
+    if (!document.hidden) {
+        console.log("Tab hiển thị lại - Tiếp tục hiệu ứng hoa rơi!");
+        setTimeout(createFlower, 500);
+    }
+});
+
+// 🎨 Style CSS để chắc chắn hoa hiển thị đẹp
+const style = document.createElement("style");
+style.innerHTML = `
+    .floating-flower {
+        position: fixed;
+        color: pink;
+        user-select: none;
+        pointer-events: none;
+    }
+`;
+document.head.appendChild(style);
 
 document.addEventListener("DOMContentLoaded", function () {
     const loadingScreen = document.querySelector(".loading-screen");
