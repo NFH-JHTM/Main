@@ -17,18 +17,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+function removeAccents(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Bỏ dấu tiếng Việt
+}
+
 function searchCards() {
-    let input = document.getElementById("searchBar").value.toLowerCase().trim();
+    let input = document.getElementById("searchBar").value.toLowerCase();
     let cards = document.querySelectorAll(".card");
 
-    if (!input) {
-        cards.forEach(card => card.style.display = "block");
-        return;
-    }
-
     cards.forEach(card => {
-        let name = card.querySelector("h2")?.innerText.toLowerCase();
-        card.style.display = name && name.includes(input) ? "block" : "none";
+        let nameElement = card.querySelector("h2");
+        if (!nameElement) return; // Bỏ qua nếu không tìm thấy tên
+
+        let name = nameElement.innerText.toLowerCase();
+        let nameNoAccents = removeAccents(name); // Tên không dấu
+        let inputNoAccents = removeAccents(input); // Tìm kiếm không dấu
+
+        if (nameNoAccents.includes(inputNoAccents)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
     });
 }
 
