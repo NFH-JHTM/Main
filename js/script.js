@@ -228,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const morsePanel = document.querySelector(".morse-panel");
 
     if (morseButton && morsePanel) {
-        morsePanel.style.display = "none";
+        morsePanel.style.display = "none"; // Đảm bảo ẩn khi load trang
 
         morseButton.addEventListener("click", function () {
             if (morsePanel.style.display === "block") {
