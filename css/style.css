@@ -268,14 +268,13 @@ body {
     opacity: 1 !important; /* Đảm bảo luôn hiển thị */
     pointer-events: none;
     z-index: 9999 !important;
-    animation: floatWave 6s linear forwards;
+    animation: floatWave 6s linear forwards, fadeOut 6s ease-out forwards;
 }
 
 /* 🌊 Animation uốn lượn */
 @keyframes floatWave {
     0% {
         transform: translateX(0) translateY(0) rotate(0deg);
-        opacity: 1;
     }
     25% {
         transform: translateX(var(--wave-amplitude, 50px)) translateY(25vh) rotate(90deg);
@@ -288,9 +287,22 @@ body {
     }
     100% {
         transform: translateX(0) translateY(100vh) rotate(360deg);
+    }
+}
+
+/* 🌫️ Hiệu ứng mờ dần */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1; /* Giữ nguyên lâu hơn */
+    }
+    100% {
         opacity: 0;
     }
 }
+
 
 /* 🎀 Loading Screen */
 .loading-screen {
