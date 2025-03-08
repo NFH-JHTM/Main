@@ -53,11 +53,19 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // 🎯 Tìm kiếm theo thời gian thực
+    searchBar.addEventListener("input", function () {
+        let input = this.value.toLowerCase().trim();
+        searchCards(input);
+    });
+
+    // 🎯 Xử lý khi nhấn Enter
     searchBar.addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
             event.preventDefault();
             let input = this.value.toLowerCase().trim();
 
+            // 🎁 Secret mode: Nếu nhập "8/3" thì chuyển đến YouTube
             if (input === "8/3") {
                 let encodedLink = "aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXd4dzlXZ1hjUSZwcD15Z1VYbmV2ZXIrZ29ubmErZ2l2ZSt5b3UrdXAlM0Q=";
                 window.location.href = decodeBase64(encodedLink);
@@ -70,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
