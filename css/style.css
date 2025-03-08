@@ -414,15 +414,18 @@ body {
     z-index: 999;
 }
 
-/* 📱 Responsive: Giữ panel ở giữa trên điện thoại */
+/* 📱 Fix Morse Code nằm giữa */
 @media (max-width: 768px) {
     .morse-panel {
         width: 180px; /* Nhỏ hơn trên điện thoại */
-        left: 50%; /* Đặt ở giữa màn hình */
-        transform: translate(-50%, 0); /* Dịch ngược lại 50% để căn giữa */
-        top: 60px; /* Hơi thấp xuống chút */
+        left: 50%; /* Đưa nó ra giữa */
+        transform: translateX(-50%); /* Căn giữa */
+        top: auto; /* Không cần top cố định */
+        bottom: 20px; /* Đặt nó gần cuối trang */
+        text-align: center; /* Căn chữ nằm giữa */
     }
 }
+
 
 
 .floating-flower,
