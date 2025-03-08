@@ -127,20 +127,21 @@ document.addEventListener("DOMContentLoaded", function () {
     animateFlowers();
 
     // 📌 Dừng spawn hoa khi chuyển tab & tiếp tục khi quay lại
-    document.addEventListener("visibilitychange", function () {
-        if (document.hidden) {
-            console.log("Tab bị ẩn - Dừng spawn hoa...");
-            isTabHidden = true;
-            clearInterval(flowerInterval);
-        } else {
-            console.log("Tab hiển thị lại - Tiếp tục spawn hoa!");
-            isTabHidden = false;
-            if (!flowerInterval) {
-                flowerInterval = setInterval(createFlower, 1000);
-            }
-        }
-    });
+document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+        console.log("Tab bị ẩn - Dừng spawn hoa...");
+        isTabHidden = true;
+        clearInterval(flowerInterval);
+    } else {
+        console.log("Tab hiển thị lại - Tiếp tục spawn hoa!");
+        isTabHidden = false;
+        
+        // 🔥 Đảm bảo interval không bị trùng bằng cách clear trước
+        clearInterval(flowerInterval);
+        flowerInterval = setInterval(createFlower, 1000);
+    }
 });
+
 
 
 
