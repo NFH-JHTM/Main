@@ -107,19 +107,20 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("resize", resizeCanvas);
 
     let flowers = [];
-    const maxFlowers = 15; // 🔥 Giới hạn số hoa
+    const maxFlowers = 15;
     let isTabHidden = false;
+    let flowerInterval;
 
     function createFlower() {
-        if (flowers.length >= maxFlowers || isTabHidden) return; // Không spawn thêm nếu đủ số lượng hoặc tab ẩn
+        if (flowers.length >= maxFlowers || isTabHidden) return;
 
         let x = Math.random() * canvas.width;
         let y = -20;
-        let size = Math.random() * 25 + 15; // 🔥 Giới hạn kích thước hoa từ 15px - 40px
-        let speed = Math.random() * 2 + 1; // 🔥 Giữ tốc độ rơi bình thường
+        let size = Math.random() * 20 + 10;
+        let speed = Math.random() * 2 + 1;
         let waveAmplitude = Math.random() * 50 + 30;
-        let opacity = 1; // 🔥 Luôn bắt đầu với độ trong suốt 100%
-        let life = 0; // 🔥 Biến theo dõi thời gian sống của hoa
+        let opacity = 1;
+        let life = 0;
 
         flowers.push({ x, y, size, speed, waveAmplitude, opacity, life });
     }
@@ -132,9 +133,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             f.y += f.speed;
             f.x += Math.sin(f.y / 50) * f.waveAmplitude * 0.02;
-            f.life += 1; // 🔥 Tăng thời gian sống của hoa
+            f.life += 1;
 
-            // 🔥 Mờ dần khi gần chạm đất (Hoa sẽ biến mất ở 80% màn hình)
             if (f.y > canvas.height * 0.6) {
                 f.opacity = 1 - ((f.y - canvas.height * 0.6) / (canvas.height * 0.4));
             }
@@ -152,21 +152,30 @@ document.addEventListener("DOMContentLoaded", function () {
         requestAnimationFrame(animateFlowers);
     }
 
-    let flowerInterval = setInterval(createFlower, 1000);
-    animateFlowers();
+    function startFlowerAnimation() {
+        if (!flowerInterval) {
+            flowerInterval = setInterval(createFlower, 1000);
+        }
+        requestAnimationFrame(animateFlowers);
+    }
+
+    function stopFlowerAnimation() {
+        clearInterval(flowerInterval);
+        flowerInterval = null;
+    }
+
+    startFlowerAnimation();
 
     // 📌 Dừng spawn hoa khi chuyển tab & tiếp tục khi quay lại
     document.addEventListener("visibilitychange", function () {
         if (document.hidden) {
             console.log("Tab bị ẩn - Dừng spawn hoa...");
             isTabHidden = true;
-            clearInterval(flowerInterval);
+            stopFlowerAnimation();
         } else {
             console.log("Tab hiển thị lại - Tiếp tục spawn hoa!");
             isTabHidden = false;
-            if (!flowerInterval) {
-                flowerInterval = setInterval(createFlower, 1000);
-            }
+            startFlowerAnimation();
         }
     });
 });
