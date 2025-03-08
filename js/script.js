@@ -159,29 +159,31 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// 🔥 Fix Morse Code không bị hiện lên khi load trang
 document.addEventListener("DOMContentLoaded", function () {
     const morseButton = document.querySelector(".morse-button");
     const morsePanel = document.querySelector(".morse-panel");
 
     if (morseButton && morsePanel) {
-        morsePanel.style.display = "none";
+        morsePanel.style.display = "none"; // Đảm bảo ẩn khi load trang
 
         morseButton.addEventListener("click", function () {
-            if (morsePanel.style.display === "block") {
-                morsePanel.style.display = "none";
-            } else {
+            const isHidden = getComputedStyle(morsePanel).display === "none";
+
+            if (isHidden) {
                 morsePanel.style.display = "block";
 
                 setTimeout(() => {
                     morsePanel.style.display = "none";
                 }, 5000);
+            } else {
+                morsePanel.style.display = "none";
             }
         });
     } else {
         console.error("Không tìm thấy nút hoặc panel!");
     }
 });
+;
 
 // 🔥 Fix hiệu ứng loading screen
 document.addEventListener("DOMContentLoaded", function () {
