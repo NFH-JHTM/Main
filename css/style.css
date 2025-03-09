@@ -167,8 +167,6 @@ body {
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     font-family: 'Itim', cursive;
-    white-space: pre-line;
-    text-align: center;
 }
 
 /* 💖 Traits (Thông tin cá nhân dạng bảng) */
