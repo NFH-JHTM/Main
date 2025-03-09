@@ -26,16 +26,15 @@ body {
 }
 
 .title {
+    font-size: 2rem;
+    color: #ff69b4; /* Màu hồng pastel */
+    text-align: left;
+    margin: 0;
     display: inline-block;
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #ff92a5; /* Màu hồng pastel */
-    text-shadow: 1px 1px 3px rgba(255, 183, 197, 0.5);
-    background: linear-gradient(90deg, #ffc3a0, #ff92a5, #ffb6c1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.5); /* Nhẹ hơn */
     animation: floatTitle 4s ease-in-out infinite;
 }
+
 
 
 /* 🔍 Search Bar */
