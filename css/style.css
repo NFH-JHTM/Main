@@ -249,9 +249,7 @@ body {
     .grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    .title {
-    font-size: 1.75rem;
-    }
+}
 
 
 .profile-page {
