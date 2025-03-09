@@ -19,12 +19,20 @@ body {
     margin: auto;
 }
 
-/* 🌸 Tiêu đề */
+@keyframes floatTitle {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
 .title {
-    font-size: 2rem;
-    color: #ff69b4;
-    text-align: left;
-    margin: 0;
+    display: inline-block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    animation: floatTitle 3s ease-in-out infinite;
 }
 
 /* 🔍 Search Bar */
