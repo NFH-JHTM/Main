@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
        if (input === "a8") {
-            let encodedLink = "aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMvMUltbVNkQjBINFhQX25QUHpnemF3QWRtQk5BMVFHUm5F";
+            let encodedLink = "aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMvMUlmbVNkQjBINlhQX25QUHpnWmF3QWRtQk5BMVFHUm5FP3VzcD1zaGFyaW5n";
             window.location.href = atob(encodedLink);
         }
 
