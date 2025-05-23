@@ -86,8 +86,10 @@ document.addEventListener("DOMContentLoaded", function () {
         searchCards(input);
         this.value = input;
         this.blur();
-    }
+        }
+    });
 });
+
 
 
 
