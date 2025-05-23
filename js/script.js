@@ -61,23 +61,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
     
     searchBar.addEventListener("keypress", function (event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            let input = this.value.toLowerCase().trim();
+    if (event.key === "Enter") {
+        event.preventDefault();
+        let input = this.value.toLowerCase().trim();
 
-            
-            if (input === "8/3") {
-                let encodedLink = "aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1hWjdWMXRRdWc2UQ==";
-                window.location.href = decodeBase64(encodedLink);
-                return;
-            }
-
-            searchCards(input);
-            this.value = input;
-            this.blur();
+        if (input === "8/3") {
+            let encodedLink = "aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1hWjdWMXRRdWc2UQ==";
+            window.location.href = decodeBase64(encodedLink);
+            return;
         }
-    });
+
+        if (input === "a8") {
+            let encodedLink = "aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMvMUltbVNkQjBINFhQX25QUHpnemF3QWRtQk5BMVFHUm5F";
+            window.location.href = decodeBase64(encodedLink);
+            return;
+        }
+
+        if (input === "cfs") {
+            let encodedLink = "aHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vZG9jdW1lbnQvZC8xUV9oa2dhNGR2UG43amprVmJTVlFkSWxLdEFPRDFTc0k3Y2pMbnl3UnNGNC9lZGl0P3VzcD1zaGFyaW5n";
+            window.location.href = decodeBase64(encodedLink);
+            return;
+        }
+
+        searchCards(input);
+        this.value = input;
+        this.blur();
+    }
 });
+
 
 
 
